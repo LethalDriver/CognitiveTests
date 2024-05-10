@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_nav"
+    app:startDestination="@id/stroopTest">
+
+
+    <fragment
+        android:id="@+id/stroopTest"
+        android:name="com.example.cognitivetests.StroopTest"
+        android:label="fragment_stroop_test"
+        tools:layout="@layout/fragment_stroop_test" />
+</navigation>
