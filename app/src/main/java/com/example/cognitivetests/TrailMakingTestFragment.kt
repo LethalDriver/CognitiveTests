@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+
 class TrailMakingTestFragment : Fragment(), TrailMakingTestListener {
     private lateinit var trailMakingTestView: TrailMakingTestView
     override fun onCreateView(
@@ -21,5 +23,14 @@ class TrailMakingTestFragment : Fragment(), TrailMakingTestListener {
     }
 
     override fun onTestCompleted(isOrderCorrect: Boolean) {
+        Toast.makeText(context, "Test completed. Order is correct: $isOrderCorrect", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onTestStarted() {
+        return
+    }
+
+    override fun onMistake() {
+        Toast.makeText(context, "Mistake made", Toast.LENGTH_SHORT).show()
     }
 }

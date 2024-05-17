@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
+import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import kotlin.random.Random
@@ -11,9 +12,13 @@ import kotlin.random.Random
 
 interface TrailMakingTestListener {
     fun onTestCompleted(isOrderCorrect: Boolean)
+    fun onTestStarted()
+    fun onMistake()
 }
 
 class TrailMakingTestView(context: Context, attrs: AttributeSet) : View(context, attrs) {
+    private var isTestStarted = false
+    private var isMistakeMade = false
     private var listener: TrailMakingTestListener? = null
     private val dotCount = 10
     private val dotRadius = 30f
@@ -53,6 +58,10 @@ class TrailMakingTestView(context: Context, attrs: AttributeSet) : View(context,
     override fun onTouchEvent(event: MotionEvent): Boolean {
         when (event.action) {
             MotionEvent.ACTION_DOWN -> {
+                if (!isTestStarted) {
+                    listener?.onTestStarted()
+                    isTestStarted = true
+                }
                 path.moveTo(event.x, event.y)
                 checkTouchingDot(event.x, event.y)
             }
@@ -70,8 +79,16 @@ class TrailMakingTestView(context: Context, attrs: AttributeSet) : View(context,
 
     private fun checkTouchingDot(x: Float, y: Float) {
         dots.forEachIndexed { index, dot ->
-            if (isTouchingDot(PointF(x, y), dot) && !touchedDotsOrder.contains(index)) {
-                touchedDotsOrder.add(index)
+            if (isTouchingDot(PointF(x, y), dot)) {
+                if (!touchedDotsOrder.contains(index)) {
+                    if (index != touchedDotsOrder.size) {
+                        if (!isMistakeMade) {
+                            listener?.onMistake()
+                            isMistakeMade = true
+                        }
+                    }
+                    touchedDotsOrder.add(index)
+                }
             }
         }
     }
@@ -87,6 +104,7 @@ class TrailMakingTestView(context: Context, attrs: AttributeSet) : View(context,
     }
 
     private fun validateOrder() {
+        Log.d("TrailMakingTestView", "Touched dots order: $touchedDotsOrder")
         val isOrderCorrect = touchedDotsOrder.indices.all { touchedDotsOrder[it] == it }
         listener?.onTestCompleted(isOrderCorrect)
     }
