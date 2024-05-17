@@ -38,7 +38,20 @@ class TrailMakingTestView(context: Context, attrs: AttributeSet) : View(context,
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
-        dots = List(dotCount) { PointF(dotRadius + Random.nextFloat() * (width - 2 * dotRadius), dotRadius + Random.nextFloat() * (height - 2 * dotRadius)) }
+        dots = mutableListOf()
+        while (dots.size < dotCount) {
+            var newDot: PointF
+            do {
+                newDot = PointF(dotRadius + Random.nextFloat() * (width - 2 * dotRadius), dotRadius + Random.nextFloat() * (height - 2 * dotRadius))
+            } while (dots.any { isOverlapping(it, newDot) })
+            (dots as MutableList<PointF>).add(newDot)
+        }
+    }
+
+    private fun isOverlapping(dot1: PointF, dot2: PointF): Boolean {
+        val dx = dot1.x - dot2.x
+        val dy = dot1.y - dot2.y
+        return dx * dx + dy * dy <= 4 * dotRadius * dotRadius
     }
 
     override fun onDraw(canvas: Canvas) {
@@ -70,7 +83,7 @@ class TrailMakingTestView(context: Context, attrs: AttributeSet) : View(context,
                 checkTouchingDot(event.x, event.y)
             }
             MotionEvent.ACTION_UP -> {
-                validateOrder()
+                checkIfTestFinished()
             }
         }
         invalidate()
@@ -103,9 +116,18 @@ class TrailMakingTestView(context: Context, attrs: AttributeSet) : View(context,
         this.listener = listener
     }
 
-    private fun validateOrder() {
-        Log.d("TrailMakingTestView", "Touched dots order: $touchedDotsOrder")
-        val isOrderCorrect = touchedDotsOrder.indices.all { touchedDotsOrder[it] == it }
-        listener?.onTestCompleted(isOrderCorrect)
+    private fun checkIfTestFinished() {
+        if (touchedDotsOrder.size != dotCount) {
+            return
+        }
+        listener?.onTestCompleted(!isMistakeMade)
+    }
+
+    fun clearLine() {
+        path.reset()
+        touchedDotsOrder.clear()
+        isMistakeMade = false
+        isTestStarted = false
+        invalidate()
     }
 }

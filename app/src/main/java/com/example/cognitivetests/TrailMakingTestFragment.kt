@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.Toast
 
 class TrailMakingTestFragment : Fragment(), TrailMakingTestListener {
@@ -20,6 +21,11 @@ class TrailMakingTestFragment : Fragment(), TrailMakingTestListener {
         super.onViewCreated(view, savedInstanceState)
         trailMakingTestView = view.findViewById(R.id.trailMakingTestView)
         trailMakingTestView.setTrailMakingTestListener(this)
+
+        val clearButton: Button = view.findViewById(R.id.clearButton)
+        clearButton.setOnClickListener {
+            trailMakingTestView.clearLine()
+        }
     }
 
     override fun onTestCompleted(isOrderCorrect: Boolean) {
