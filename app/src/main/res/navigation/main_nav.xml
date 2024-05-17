@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_nav"
-    app:startDestination="@id/stroopTest">
+    app:startDestination="@id/trailMakingTest">
 
 
     <fragment
@@ -11,4 +11,10 @@
         android:name="com.example.cognitivetests.StroopTest"
         android:label="fragment_stroop_test"
         tools:layout="@layout/fragment_stroop_test" />
+
+    <fragment
+        android:id="@+id/trailMakingTest"
+        android:name="com.example.cognitivetests.TrailMakingTestFragment"
+        android:label="fragment_trail_making_test"
+        tools:layout="@layout/fragment_trail_making_test" />
 </navigation>
