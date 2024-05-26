@@ -7,18 +7,19 @@ import android.util.AttributeSet
 import android.util.Log
 import android.view.MotionEvent
 import android.view.View
+import android.widget.Toast
 import kotlin.random.Random
 
 
 interface TrailMakingTestListener {
-    fun onTestCompleted(isOrderCorrect: Boolean)
+    fun onTestCompleted()
     fun onTestStarted()
     fun onMistake()
 }
 
 class TrailMakingTestView(context: Context, attrs: AttributeSet) : View(context, attrs) {
     private var isTestStarted = false
-    private var isMistakeMade = false
+    private var processTouchEvent = true
     private var listener: TrailMakingTestListener? = null
     private val dotCount = 10
     private val dotRadius = 30f
@@ -69,6 +70,9 @@ class TrailMakingTestView(context: Context, attrs: AttributeSet) : View(context,
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onTouchEvent(event: MotionEvent): Boolean {
+        if (!processTouchEvent && event.action != MotionEvent.ACTION_UP) {
+            return true
+        }
         when (event.action) {
             MotionEvent.ACTION_DOWN -> {
                 if (!isTestStarted) {
@@ -84,6 +88,8 @@ class TrailMakingTestView(context: Context, attrs: AttributeSet) : View(context,
             }
             MotionEvent.ACTION_UP -> {
                 checkIfTestFinished()
+                path.reset()
+                processTouchEvent = true
             }
         }
         invalidate()
@@ -95,10 +101,8 @@ class TrailMakingTestView(context: Context, attrs: AttributeSet) : View(context,
             if (isTouchingDot(PointF(x, y), dot)) {
                 if (!touchedDotsOrder.contains(index)) {
                     if (index != touchedDotsOrder.size) {
-                        if (!isMistakeMade) {
-                            listener?.onMistake()
-                            isMistakeMade = true
-                        }
+                        onMistakeMade()
+                        return
                     }
                     touchedDotsOrder.add(index)
                 }
@@ -120,14 +124,15 @@ class TrailMakingTestView(context: Context, attrs: AttributeSet) : View(context,
         if (touchedDotsOrder.size != dotCount) {
             return
         }
-        listener?.onTestCompleted(!isMistakeMade)
+        listener?.onTestCompleted()
     }
 
-    fun clearLine() {
+
+    private fun onMistakeMade() {
+        listener?.onMistake()
         path.reset()
         touchedDotsOrder.clear()
-        isMistakeMade = false
-        isTestStarted = false
-        invalidate()
+        Toast.makeText(context, "Mistake made", Toast.LENGTH_SHORT).show()
+        processTouchEvent = false
     }
 }
