@@ -2,4 +2,6 @@
     <string name="app_name">CognitiveTests</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="stroop_instruction">Lorem ipsum</string>
+    <string name="trail_making_instruction">Lorem ipsum</string>
 </resources>

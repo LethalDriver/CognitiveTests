@@ -17,4 +17,32 @@
         android:name="com.example.cognitivetests.TrailMakingTestFragment"
         android:label="fragment_trail_making_test"
         tools:layout="@layout/fragment_trail_making_test" />
+
+    <fragment
+        android:id="@+id/instructionFragment"
+        android:name="com.example.cognitivetests.InstructionFragment"
+        android:label="fragment_instruction"
+        tools:layout="@layout/fragment_instruction" >
+        <argument
+            android:name="test"
+            app:argType="string"
+            android:defaultValue="stroop" />
+
+        <action
+            android:id="@+id/action_instructionFragment_to_stroopTest"
+            app:destination="@id/stroopTest"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
+        <action
+            android:id="@+id/action_instructionFragment_to_trailMakingTest"
+            app:destination="@id/trailMakingTest"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
 </navigation>
