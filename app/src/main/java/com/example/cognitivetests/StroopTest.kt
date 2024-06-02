@@ -22,6 +22,7 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 
 // Kotlin and Coroutine imports
 import kotlinx.coroutines.delay
@@ -40,20 +41,15 @@ class StroopTest : Fragment() {
         "purple" to R.color.purple,
     )
     private var displayedColor: String? = null
+    private val roundsNb = 20
+    private val score = 0
+    private var currentRound = 0
 
     // Register for activity result for permission request
     private val requestPermissionLauncher = registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted: Boolean ->
-        if (isGranted) {
-            lifecycleScope.launch {
-                val result = startListening()
-                if (result != null) {
-                    Toast.makeText(context, "Result: $result", Toast.LENGTH_LONG).show()
-                } else {
-                    Toast.makeText(context, "No result from speech recognition", Toast.LENGTH_SHORT).show()
-                }
-            }
-        } else {
-            Toast.makeText(context, "Permission not granted", Toast.LENGTH_SHORT).show()
+        if (!isGranted){
+            Toast.makeText(context, "Please enable permission to record audio to take the test.", Toast.LENGTH_SHORT).show()
+            findNavController().navigate(StroopTestDirections.actionStroopTestToMainFragment())
         }
     }
 
@@ -75,7 +71,9 @@ class StroopTest : Fragment() {
             startTestButton.visibility = View.GONE
             listenButton.visibility = View.VISIBLE
             lifecycleScope.launch {
+                listenButton.isEnabled = false
                 displayedColor = showColor(3000L)
+                listenButton.isEnabled = true
             }
         }
 
@@ -83,21 +81,17 @@ class StroopTest : Fragment() {
         listenButton.setOnClickListener {
             if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
                 requestPermissionLauncher.launch(Manifest.permission.RECORD_AUDIO)
-            } else {
-                lifecycleScope.launch {
-                    val result = startListening()
-                    if (result != null) {
-                        if (result.equals(displayedColor, ignoreCase = true)) {
-                            Toast.makeText(context, "Correct!", Toast.LENGTH_LONG).show()
-                        } else {
-                            Toast.makeText(context, "Incorrect, try again", Toast.LENGTH_LONG).show()
-                        }
-                    } else {
-                        Toast.makeText(context, "No result from speech recognition", Toast.LENGTH_SHORT).show()
-                    }
-                    listenButton.isEnabled = false // disable the button while the color is being displayed
-                    displayedColor = showColor(3000L) // display a new color
-                    listenButton.isEnabled = true // enable the button after the color has been displayed
+            }
+            lifecycleScope.launch {
+                listenForColor()
+                currentRound++
+                if (currentRound < roundsNb) {
+                    listenButton.isEnabled = false
+                    displayedColor = showColor(3000L)
+                    listenButton.isEnabled = true
+                } else {
+                    Toast.makeText(context, "Test finished", Toast.LENGTH_LONG).show()
+                    findNavController().navigate(StroopTestDirections.actionStroopTestToMainFragment())
                 }
             }
         }
@@ -172,4 +166,18 @@ class StroopTest : Fragment() {
         colorTv?.text = ""
         return colorValue
     }
+
+    private suspend fun listenForColor() {
+        val result = startListening()
+        if (result != null) {
+            if (result.equals(displayedColor, ignoreCase = true)) {
+                Toast.makeText(context, "Correct!", Toast.LENGTH_LONG).show()
+            } else {
+                Toast.makeText(context, "Incorrect, try again", Toast.LENGTH_LONG).show()
+            }
+        } else {
+            Toast.makeText(context, "No result from speech recognition", Toast.LENGTH_SHORT).show()
+        }
+    }
+
 }

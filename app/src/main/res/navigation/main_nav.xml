@@ -10,7 +10,13 @@
         android:id="@+id/stroopTest"
         android:name="com.example.cognitivetests.StroopTest"
         android:label="fragment_stroop_test"
-        tools:layout="@layout/fragment_stroop_test" />
+        tools:layout="@layout/fragment_stroop_test"
+        >
+        <action
+            android:id="@+id/action_stroopTest_to_mainFragment"
+            app:destination="@id/mainFragment"
+            />
+    </fragment>
 
     <fragment
         android:id="@+id/trailMakingTest"
