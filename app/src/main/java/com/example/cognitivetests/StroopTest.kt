@@ -49,8 +49,7 @@ class StroopTest : Fragment() {
     private val requestPermissionLauncher = registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted: Boolean ->
         if (!isGranted){
             Toast.makeText(context, "Please enable permission to record audio to take the test.", Toast.LENGTH_SHORT).show()
-            findNavController().navigate(StroopTestDirections.actionStroopTestToMainFragment())
-        }
+            findNavController().navigate(R.id.action_stroopTest_to_mainFragment)        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -95,7 +94,7 @@ class StroopTest : Fragment() {
                     listenButton.isEnabled = true
                 } else {
                     Toast.makeText(context, "Test finished", Toast.LENGTH_LONG).show()
-                    findNavController().navigate(StroopTestDirections.actionStroopTestToMainFragment())
+                    findNavController().navigate(R.id.action_stroopTest_to_mainFragment)
                 }
             }
         }

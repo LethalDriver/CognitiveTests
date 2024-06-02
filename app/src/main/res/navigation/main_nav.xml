@@ -55,7 +55,17 @@
         android:id="@+id/mainFragment"
         android:name="com.example.cognitivetests.MainFragment"
         android:label="fragment_main"
-        tools:layout="@layout/fragment_main"/>
+        tools:layout="@layout/fragment_main">
+        <action
+            android:id="@+id/action_mainFragment_to_stroopTest"
+            app:destination="@id/stroopTest"
+            />
+        <action
+            android:id="@+id/action_mainFragment_to_trailMakingTest"
+            app:destination="@id/trailMakingTest"
+            />
+    </fragment>
+
 
 
 </navigation>
