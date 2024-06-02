@@ -42,7 +42,7 @@ class StroopTest : Fragment() {
     )
     private var displayedColor: String? = null
     private val roundsNb = 20
-    private val score = 0
+    private var score = 0
     private var currentRound = 0
 
     // Register for activity result for permission request
@@ -66,6 +66,8 @@ class StroopTest : Fragment() {
 
         val listenButton = view.findViewById<Button>(R.id.speechListenButton)
         val startTestButton = view.findViewById<Button>(R.id.startTestButton)
+        val roundTv = view.findViewById<TextView>(R.id.roundNumberTv)
+        val scoreTv = view.findViewById<TextView>(R.id.scoreTv)
 
         startTestButton.setOnClickListener {
             startTestButton.visibility = View.GONE
@@ -85,6 +87,8 @@ class StroopTest : Fragment() {
             lifecycleScope.launch {
                 listenForColor()
                 currentRound++
+                roundTv.text = "Round: $currentRound"
+                scoreTv.text = "Score: $score"
                 if (currentRound < roundsNb) {
                     listenButton.isEnabled = false
                     displayedColor = showColor(3000L)
@@ -172,6 +176,7 @@ class StroopTest : Fragment() {
         if (result != null) {
             if (result.equals(displayedColor, ignoreCase = true)) {
                 Toast.makeText(context, "Correct!", Toast.LENGTH_LONG).show()
+                score++
             } else {
                 Toast.makeText(context, "Incorrect, try again", Toast.LENGTH_LONG).show()
             }
