@@ -1,16 +1,50 @@
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".MainActivity">
+    android:orientation="vertical"
+    tools:context=".MainActivity"
+    android:padding="10dp">
 
-    <TextView
+    <Button
+        android:id="@+id/button_stroop_test"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Main fragment"
-        android:gravity="center"
+        android:layout_weight="1"
+        android:text="Stroop Test"
         android:textSize="30sp"
+        android:textColor="@android:color/white"
+        android:gravity="center"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        app:cornerRadius="0dp"
         />
-</FrameLayout>
+
+    <Button
+        android:id="@+id/button_trail_making_test"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Trail Making Test"
+        android:textSize="30sp"
+        android:textColor="@android:color/white"
+        android:gravity="center"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        app:cornerRadius="0dp"/>
+
+    <Button
+        android:id="@+id/button_digit_substitution_test"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Digit Substitution Test"
+        android:textSize="30sp"
+        android:textColor="@android:color/white"
+        android:gravity="center"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        app:cornerRadius="0dp"/>
+
+</LinearLayout>
