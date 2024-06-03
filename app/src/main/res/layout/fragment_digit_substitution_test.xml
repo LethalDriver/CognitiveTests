@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    >
+
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/triangleBtn"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:layout_marginEnd="48dp"
+        android:layout_marginBottom="48dp"
+        app:iconPadding="0dp"
+        app:iconGravity="textStart"
+        app:iconSize="96dp"
+        app:icon="@drawable/baseline_triangle_24"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/circleBtn"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        app:iconPadding="0dp"
+        app:iconGravity="textStart"
+        app:iconSize="64dp"
+        app:icon="@drawable/baseline_circle_24"
+        app:layout_constraintBottom_toTopOf="@+id/arrowDownBtn"
+        app:layout_constraintEnd_toStartOf="@+id/arrowRightBtn"
+        app:layout_constraintStart_toEndOf="@+id/arrowLeftBtn" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/lineBtn"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:layout_marginStart="48dp"
+        app:iconPadding="0dp"
+        app:iconGravity="textStart"
+        app:iconSize="96dp"
+        app:icon="@drawable/baseline_horizontal_line_24"
+        app:layout_constraintBottom_toTopOf="@+id/arrowLeftBtn"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/arrowUpBtn"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        app:iconPadding="0dp"
+        app:iconGravity="textStart"
+        app:iconSize="96dp"
+        app:icon="@drawable/baseline_keyboard_arrow_up_24"
+        app:layout_constraintBottom_toTopOf="@+id/circleBtn"
+        app:layout_constraintEnd_toStartOf="@+id/crossBtn"
+        app:layout_constraintStart_toEndOf="@+id/lineBtn" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/crossBtn"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:layout_marginEnd="48dp"
+        app:iconPadding="0dp"
+        app:iconGravity="textStart"
+        app:iconSize="96dp"
+        app:icon="@drawable/baseline_cross_24"
+        app:layout_constraintBottom_toTopOf="@+id/arrowRightBtn"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/arrowLeftBtn"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:layout_marginStart="48dp"
+        app:iconPadding="0dp"
+        app:iconGravity="textStart"
+        app:iconSize="96dp"
+        app:icon="@drawable/baseline_keyboard_arrow_left_24"
+        app:layout_constraintBottom_toTopOf="@+id/button7"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/arrowRightBtn"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:layout_marginEnd="48dp"
+        app:iconPadding="0dp"
+        app:iconGravity="textStart"
+        app:iconSize="96dp"
+        app:icon="@drawable/baseline_keyboard_arrow_right_24"
+        app:layout_constraintBottom_toTopOf="@+id/triangleBtn"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/button7"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginBottom="48dp"
+        app:iconPadding="0dp"
+        app:iconGravity="textStart"
+        app:iconSize="96dp"
+        app:icon="@drawable/baseline_square_24"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/arrowDownBtn"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:layout_marginBottom="48dp"
+        app:iconPadding="0dp"
+        app:iconGravity="textStart"
+        app:iconSize="96dp"
+        app:icon="@drawable/baseline_keyboard_arrow_down_24"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/triangleBtn"
+        app:layout_constraintStart_toEndOf="@+id/button7" />
+</androidx.constraintlayout.widget.ConstraintLayout>
