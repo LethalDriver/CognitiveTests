@@ -1,59 +1,73 @@
 package com.example.cognitivetests
 
 import android.os.Bundle
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.ImageSpan
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import androidx.core.graphics.drawable.toBitmap
+import com.google.android.material.button.MaterialButton
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [DigitSubstitutionTest.newInstance] factory method to
- * create an instance of this fragment.
- */
 class DigitSubstitutionTest : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private lateinit var buttonIdToDigitMap: Map<Int, Int>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_digit_substitution_test, container, false)
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment DigitSubstitutionTest.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            DigitSubstitutionTest().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val legendButtonsIds = listOf(
+            R.id.button,
+            R.id.button2,
+            R.id.button3,
+            R.id.button4,
+            R.id.button5,
+            R.id.button6,
+            R.id.button7,
+            R.id.button8,
+            R.id.button9
+        )
+
+        // Create a list of all button IDs
+        val buttonIds = listOf(
+            R.id.triangleBtn,
+            R.id.circleBtn,
+            R.id.lineBtn,
+            R.id.arrowUpBtn,
+            R.id.crossBtn,
+            R.id.arrowLeftBtn,
+            R.id.arrowRightBtn,
+            R.id.squareBtn,
+            R.id.arrowDownBtn
+        )
+
+        // Create a list of digits from 1 to 9 and shuffle it
+        val digits = (1..9).shuffled()
+
+        // Create a map that associates each button ID with a corresponding digit
+        buttonIdToDigitMap = buttonIds.zip(digits).toMap()
+
+        for (i in buttonIdToDigitMap.keys.indices) {
+            val button = view.findViewById<MaterialButton>(buttonIds[i])
+            val digit = buttonIdToDigitMap[buttonIds[i]]
+            val legendButton = view.findViewById<MaterialButton>(legendButtonsIds[digit!! - 1])
+            val buttonIcon = button.icon
+            val newIcon = buttonIcon.constantState?.newDrawable() // Create a new Drawable instance
+            legendButton.background = newIcon
+        }
+
+
     }
+
+
 }

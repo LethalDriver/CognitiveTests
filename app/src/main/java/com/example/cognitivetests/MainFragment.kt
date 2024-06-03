@@ -27,6 +27,10 @@ class MainFragment : Fragment() {
         tmTestButton.setOnClickListener {
             findNavController(view).navigate(R.id.action_mainFragment_to_trailMakingTest)
         }
+        val dsTestButton = view.findViewById<Button>(R.id.button_digit_substitution_test)
+        dsTestButton.setOnClickListener {
+            findNavController(view).navigate(R.id.action_mainFragment_to_digitSubstitutionTest)
+        }
         return view
     }
 

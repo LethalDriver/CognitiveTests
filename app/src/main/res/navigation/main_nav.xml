@@ -64,8 +64,22 @@
             android:id="@+id/action_mainFragment_to_trailMakingTest"
             app:destination="@id/trailMakingTest"
             />
+        <action
+            android:id="@+id/action_mainFragment_to_digitSubstitutionTest"
+            app:destination="@id/digitSubstitutionTest"
+            />
     </fragment>
 
+    <fragment
+        android:id="@+id/digitSubstitutionTest"
+        android:name="com.example.cognitivetests.DigitSubstitutionTest"
+        android:label="fragment_digit_substitution_test"
+        tools:layout="@layout/fragment_digit_substitution_test" >
+        <action
+            android:id="@+id/action_digitSubstitutionTest_to_mainFragment"
+            app:destination="@id/mainFragment"
+            />
+    </fragment>
 
 
 </navigation>
