@@ -23,7 +23,21 @@ class MainActivity : AppCompatActivity() {
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         val navController = navHostFragment.navController
 
+        bottomNavigation.selectedItemId = R.id.home
 
+        bottomNavigation.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.scores -> {
+                    navController.navigate(R.id.scoreFragment)
+                    true
+                }
+                R.id.home -> {
+                    navController.navigate(R.id.mainFragment)
+                    true
+                }
+                else -> false
+            }
+        }
 
     }
 }

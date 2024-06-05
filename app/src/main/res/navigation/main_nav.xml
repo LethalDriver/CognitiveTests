@@ -81,5 +81,16 @@
             />
     </fragment>
 
+    <fragment
+        android:id="@+id/scoreFragment"
+        android:name="com.example.cognitivetests.ScoresFragment"
+        android:label="fragment_score"
+        tools:layout="@layout/fragment_scores" >
+        <action
+            android:id="@+id/action_scoreFragment_to_mainFragment"
+            app:destination="@id/mainFragment"
+            />
+    </fragment>
+
 
 </navigation>
