@@ -120,13 +120,14 @@
         app:layout_constraintStart_toEndOf="@+id/squareBtn" />
 
     <LinearLayout
+        android:id="@+id/firstRow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:id="@+id/firstRow">
+        app:layout_constraintTop_toBottomOf="@+id/timerTv">
 
 
         <LinearLayout
@@ -134,40 +135,41 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-        <Button
-            android:id="@+id/button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/baseline_horizontal_line_24" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="1"
-            android:layout_gravity="center"/>
+            <Button
+                android:id="@+id/button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/baseline_horizontal_line_24" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="1" />
         </LinearLayout>
 
 
         <LinearLayout
             android:layout_width="48dp"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            >
+            android:orientation="vertical">
 
             <Button
                 android:id="@+id/button2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                app:iconPadding="0dp"
+                android:background="@drawable/baseline_horizontal_line_24"
                 app:iconGravity="textStart"
-                app:iconSize="32dp"
-                android:background="@drawable/baseline_horizontal_line_24" />
+                app:iconPadding="0dp"
+                app:iconSize="32dp" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="2"
-                android:layout_gravity="center"/>
+                android:layout_gravity="center"
+                android:text="2" />
         </LinearLayout>
 
         <LinearLayout
@@ -180,15 +182,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                app:iconPadding="0dp"
+                android:background="@drawable/baseline_horizontal_line_24"
                 app:iconGravity="textStart"
-                app:iconSize="32dp"
-                android:background="@drawable/baseline_horizontal_line_24" />
+                app:iconPadding="0dp"
+                app:iconSize="32dp" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="3"
-                android:layout_gravity="center"/>
+                android:layout_gravity="center"
+                android:text="3" />
         </LinearLayout>
 
         <LinearLayout
@@ -201,15 +204,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                app:iconPadding="0dp"
+                android:background="@drawable/baseline_horizontal_line_24"
                 app:iconGravity="textStart"
-                app:iconSize="32dp"
-                android:background="@drawable/baseline_horizontal_line_24" />
+                app:iconPadding="0dp"
+                app:iconSize="32dp" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="4"
-                android:layout_gravity="center"/>
+                android:layout_gravity="center"
+                android:text="4" />
         </LinearLayout>
 
         <LinearLayout
@@ -222,15 +226,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                app:iconPadding="0dp"
+                android:background="@drawable/baseline_horizontal_line_24"
                 app:iconGravity="textStart"
-                app:iconSize="32dp"
-                android:background="@drawable/baseline_horizontal_line_24" />
+                app:iconPadding="0dp"
+                app:iconSize="32dp" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="5"
-                android:layout_gravity="center"/>
+                android:layout_gravity="center"
+                android:text="5" />
         </LinearLayout>
 
 
@@ -347,5 +352,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+
+    <TextView
+        android:id="@+id/timerTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

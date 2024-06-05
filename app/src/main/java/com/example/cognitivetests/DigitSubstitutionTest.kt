@@ -1,6 +1,7 @@
 package com.example.cognitivetests
 
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ImageSpan
@@ -15,6 +16,9 @@ import com.google.android.material.button.MaterialButton
 class DigitSubstitutionTest : Fragment() {
 
     private lateinit var buttonIdToDigitMap: Map<Int, Int>
+    private lateinit var countDownTimer: CountDownTimer
+    private var score = 0
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -25,6 +29,20 @@ class DigitSubstitutionTest : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val timerTv = view.findViewById<TextView>(R.id.timerTv)
+
+        countDownTimer = object : CountDownTimer(60000, 1000) {
+            override fun onTick(millisUntilFinished: Long) {
+                timerTv.text = (millisUntilFinished / 1000).toString()
+            }
+
+            override fun onFinish() {
+                timerTv.text = "0"
+            }
+        }
+
+        countDownTimer.start()
 
         val legendButtonsIds = listOf(
             R.id.button,
