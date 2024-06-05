@@ -85,22 +85,30 @@ class StroopTest : Fragment() {
             }
             lifecycleScope.launch {
                 listenForColor()
-                currentRound++
-                roundTv.text = "Round: $currentRound"
-                scoreTv.text = "Score: $score"
-                if (currentRound < roundsNb) {
-                    listenButton.isEnabled = false
-                    displayedColor = showColor(3000L)
-                    listenButton.isEnabled = true
-                } else {
-                    Toast.makeText(context, "Test finished", Toast.LENGTH_LONG).show()
-                    findNavController().navigate(R.id.action_stroopTest_to_mainFragment)
-                }
+                nextRound(roundTv, scoreTv, listenButton)
             }
         }
 
 
         return view
+    }
+
+    private suspend fun nextRound(
+        roundTv: TextView,
+        scoreTv: TextView,
+        listenButton: Button
+    ) {
+        currentRound++
+        roundTv.text = "Round: $currentRound"
+        scoreTv.text = "Score: $score"
+        if (currentRound < roundsNb) {
+            listenButton.isEnabled = false
+            displayedColor = showColor(3000L)
+            listenButton.isEnabled = true
+        } else {
+            Toast.makeText(context, "Test finished", Toast.LENGTH_LONG).show()
+            findNavController().navigate(R.id.action_stroopTest_to_mainFragment)
+        }
     }
 
     // Suspend function to start listening for speech input
@@ -183,5 +191,6 @@ class StroopTest : Fragment() {
             Toast.makeText(context, "No result from speech recognition", Toast.LENGTH_SHORT).show()
         }
     }
+
 
 }
