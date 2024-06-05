@@ -6,16 +6,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.cognitivetests.R
 
 class ScoresAdapter(private val myDataset: Array<Score>) :
-    RecyclerView.Adapter<MyViewHolder>() {
+    RecyclerView.Adapter<ScoreViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ScoreViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.score_item, parent, false)
 
-        return MyViewHolder(view)
+        return ScoreViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ScoreViewHolder, position: Int) {
         holder.testType.text = myDataset[position].testType
         holder.dateTime.text = myDataset[position].dateTime
         if (myDataset[position].score != null) {
