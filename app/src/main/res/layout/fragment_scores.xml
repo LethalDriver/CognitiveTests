@@ -6,42 +6,38 @@
     android:orientation="vertical"
     tools:context=".ScoresFragment">
 
-    <LinearLayout
+    <com.google.android.material.chip.ChipGroup
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="10dp"
-        android:gravity="center_horizontal">
+        android:layout_height="wrap_content">
 
-    <com.google.android.material.chip.Chip
-        android:id="@+id/chip"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Stroop"
-        android:layout_marginRight="10dp"/>
+        <com.google.android.material.chip.Chip
+            android:id="@+id/stroopChip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Stroop"
+            android:layout_marginRight="10dp"/>
 
-    <com.google.android.material.chip.Chip
-        android:id="@+id/chip2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Trail Making"
-        android:layout_marginRight="10dp"/>
+        <com.google.android.material.chip.Chip
+            android:id="@+id/tmtChip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Trail Making"
+            android:layout_marginRight="10dp"/>
 
-    <com.google.android.material.chip.Chip
-        android:id="@+id/chip3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Digit Substitution"/>
+        <com.google.android.material.chip.Chip
+            android:id="@+id/digitSubChip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Digit Substitution"/>
 
-    </LinearLayout>
+    </com.google.android.material.chip.ChipGroup>
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:id="@+id/recycler_view"
-        android:padding="10dp"/>
-
-
+        android:padding="10dp"
+        android:layout_marginTop="10dp"/>
 
 </LinearLayout>
