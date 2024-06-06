@@ -18,6 +18,7 @@ class DigitSubstitutionTest : Fragment() {
     private lateinit var buttonIdToDigitMap: Map<Int, Int>
     private lateinit var countDownTimer: CountDownTimer
     private var score = 0
+    private var currentDigit = 1
 
 
     override fun onCreateView(
@@ -31,6 +32,12 @@ class DigitSubstitutionTest : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val timerTv = view.findViewById<TextView>(R.id.timerTv)
+        val digitTv = view.findViewById<TextView>(R.id.digitTv)
+
+
+        currentDigit = (1..9).random()
+        digitTv.text = currentDigit.toString()
+
 
         countDownTimer = object : CountDownTimer(60000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
@@ -85,7 +92,22 @@ class DigitSubstitutionTest : Fragment() {
         }
 
 
+        for (buttonId in buttonIds) {
+            val button = view.findViewById<MaterialButton>(buttonId)
+            button.setOnClickListener {
+                if (buttonIdToDigitMap[buttonId] == currentDigit) {
+                    score++
+                }
+                currentDigit = (1..9).random()
+                digitTv.text = currentDigit.toString()
+            }
+        }
+
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        countDownTimer.cancel()
+    }
 
 }
