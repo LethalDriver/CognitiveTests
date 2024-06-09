@@ -14,14 +14,12 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.addCallback
 
 // AndroidX imports
-import androidx.fragment.app.Fragment
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 
 // Kotlin and Coroutine imports
@@ -30,7 +28,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlin.coroutines.resume
 
-class StroopTest : Fragment() {
+class StroopTest : TestFragment() {
     private lateinit var speechRecognizer: SpeechRecognizer
     private val colors = mapOf(
         "red" to R.color.red,
@@ -51,7 +49,6 @@ class StroopTest : Fragment() {
             Toast.makeText(context, "Please enable permission to record audio to take the test.", Toast.LENGTH_SHORT).show()
             findNavController().navigate(R.id.action_stroopTest_to_mainFragment)        }
     }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         speechRecognizer = SpeechRecognizer.createSpeechRecognizer(requireContext())
@@ -61,8 +58,10 @@ class StroopTest : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_stroop_test, container, false)
-
+        return inflater.inflate(R.layout.fragment_stroop_test, container, false)
+    }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         val listenButton = view.findViewById<Button>(R.id.speechListenButton)
         val startTestButton = view.findViewById<Button>(R.id.startTestButton)
         val roundTv = view.findViewById<TextView>(R.id.roundNumberTv)
@@ -89,8 +88,10 @@ class StroopTest : Fragment() {
             }
         }
 
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            handleBackPress()
+        }
 
-        return view
     }
 
     private suspend fun nextRound(
@@ -106,9 +107,16 @@ class StroopTest : Fragment() {
             displayedColor = showColor(3000L)
             listenButton.isEnabled = true
         } else {
-            Toast.makeText(context, "Test finished", Toast.LENGTH_LONG).show()
+            val isSaved = showTestCompletedDialog()
+            if (isSaved) {
+                postResult(score)
+            }
             findNavController().navigate(R.id.action_stroopTest_to_mainFragment)
         }
+    }
+
+    private fun postResult(score: Int) {
+        //TODO
     }
 
     // Suspend function to start listening for speech input
@@ -191,6 +199,8 @@ class StroopTest : Fragment() {
             Toast.makeText(context, "No result from speech recognition", Toast.LENGTH_SHORT).show()
         }
     }
+
+
 
 
 }

@@ -22,7 +22,12 @@
         android:id="@+id/trailMakingTest"
         android:name="com.example.cognitivetests.TrailMakingTestFragment"
         android:label="fragment_trail_making_test"
-        tools:layout="@layout/fragment_trail_making_test" />
+        tools:layout="@layout/fragment_trail_making_test" >
+        <action
+            android:id="@+id/action_trailMakingTest_to_mainFragment"
+            app:destination="@id/mainFragment"
+            />
+    </fragment>
 
     <fragment
         android:id="@+id/instructionFragment"
