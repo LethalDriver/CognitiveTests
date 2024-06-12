@@ -21,15 +21,18 @@ class MainFragment : Fragment() {
 
         val stroopTestButton = view.findViewById<Button>(R.id.button_stroop_test)
         stroopTestButton.setOnClickListener {
-            findNavController(view).navigate(R.id.action_mainFragment_to_stroopTest)
+            val action = MainFragmentDirections.actionMainFragmentToInstructionFragment("stroop")
+            findNavController(view).navigate(action)
         }
         val tmTestButton = view.findViewById<Button>(R.id.button_trail_making_test)
         tmTestButton.setOnClickListener {
-            findNavController(view).navigate(R.id.action_mainFragment_to_trailMakingTest)
+            val action = MainFragmentDirections.actionMainFragmentToInstructionFragment("trail_making")
+            findNavController(view).navigate(action)
         }
         val dsTestButton = view.findViewById<Button>(R.id.button_digit_substitution_test)
         dsTestButton.setOnClickListener {
-            findNavController(view).navigate(R.id.action_mainFragment_to_digitSubstitutionTest)
+            val action = MainFragmentDirections.actionMainFragmentToInstructionFragment("digit_substitution")
+            findNavController(view).navigate(action)
         }
         return view
     }

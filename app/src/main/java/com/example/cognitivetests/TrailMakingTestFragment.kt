@@ -10,11 +10,14 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.addCallback
+import androidx.navigation.fragment.findNavController
 
-class TrailMakingTestFragment : Fragment(), TrailMakingTestListener {
+class TrailMakingTestFragment : TestFragment(), TrailMakingTestListener {
     private lateinit var trailMakingTestView: TrailMakingTestView
     private lateinit var timerTextView: TextView
     private var secondsElapsed = 0
+    private var mistakeCount = 0
     private val handler = Handler(Looper.getMainLooper())
     private val runnable = object : Runnable {
         override fun run() {
@@ -23,22 +26,31 @@ class TrailMakingTestFragment : Fragment(), TrailMakingTestListener {
             handler.postDelayed(this, 1000)
         }
     }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.fragment_trail_making_test, container, false)
     }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         trailMakingTestView = view.findViewById(R.id.trailMakingTestView)
         timerTextView = view.findViewById(R.id.tvTimer)
         trailMakingTestView.setTrailMakingTestListener(this)
+
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            handleBackPress()
+        }
     }
 
     override fun onTestCompleted() {
-        Toast.makeText(context, "Test completed.", Toast.LENGTH_SHORT).show()
+        handler.removeCallbacks(runnable)
+        val isSaved = showTestCompletedDialog()
+        if (isSaved) {
+            postResult(secondsElapsed, mistakeCount)
+        }
+        findNavController().navigate(R.id.action_trailMakingTest_to_mainFragment)
     }
 
     override fun onTestStarted() {
@@ -47,6 +59,11 @@ class TrailMakingTestFragment : Fragment(), TrailMakingTestListener {
     }
 
     override fun onMistake() {
-        // TODO
+        mistakeCount++
+        return
+    }
+
+    private fun postResult(secondsElapsed: Int, mistakes: Int) {
+        //TODO
     }
 }

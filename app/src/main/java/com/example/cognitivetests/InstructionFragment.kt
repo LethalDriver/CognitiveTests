@@ -11,7 +11,7 @@ import androidx.navigation.fragment.navArgs
 
 
 class InstructionFragment : Fragment() {
-    val args: InstructionFragmentArgs by navArgs()
+    private val args: InstructionFragmentArgs by navArgs()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -30,15 +30,20 @@ class InstructionFragment : Fragment() {
             "stroop" -> {
                 instructionTextView.text = getString(R.string.stroop_instruction)
             }
+            "digit_substitution" -> {
+                instructionTextView.text = getString(R.string.digit_substitution_instruction)
+            }
         }
         startButton.setOnClickListener {
             when (args.test) {
-                "trail_making" -> {
-                    findNavController().navigate(InstructionFragmentDirections.actionInstructionFragmentToTrailMakingTest())
-                }
-
                 "stroop" -> {
-                    findNavController().navigate(InstructionFragmentDirections.actionInstructionFragmentToStroopTest())
+                    findNavController().navigate(R.id.action_instructionFragment_to_stroopTest)
+                }
+                "trail_making" -> {
+                    findNavController().navigate(R.id.action_instructionFragment_to_trailMakingTest)
+                }
+                "digit_substitution" -> {
+                    findNavController().navigate(InstructionFragmentDirections.actionInstructionFragmentToDigitSubstitutionTest())
                 }
             }
         }

@@ -39,5 +39,16 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            when (destination.id) {
+                R.id.stroopTest, R.id.trailMakingTest, R.id.digitSubstitutionTest -> {
+                    bottomNavigation.visibility = View.GONE
+                }
+                else -> {
+                    bottomNavigation.visibility = View.VISIBLE
+                }
+            }
+        }
+
     }
 }

@@ -10,14 +10,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.activity.addCallback
 import androidx.core.graphics.drawable.toBitmap
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.button.MaterialButton
 
-class DigitSubstitutionTest : Fragment() {
+class DigitSubstitutionTest : TestFragment() {
 
     private lateinit var buttonIdToDigitMap: Map<Int, Int>
     private lateinit var countDownTimer: CountDownTimer
-    private var score = 0
+    private var goodAnswers = 0
+    private var mistakes = 0
     private var currentDigit = 1
 
 
@@ -46,6 +49,11 @@ class DigitSubstitutionTest : Fragment() {
 
             override fun onFinish() {
                 timerTv.text = "0"
+                val isSaved = showTestCompletedDialog()
+                if (isSaved) {
+                    postResult(goodAnswers, mistakes)
+                }
+                findNavController().navigate(R.id.action_digitSubstitutionTest_to_mainFragment)
             }
         }
 
@@ -96,11 +104,17 @@ class DigitSubstitutionTest : Fragment() {
             val button = view.findViewById<MaterialButton>(buttonId)
             button.setOnClickListener {
                 if (buttonIdToDigitMap[buttonId] == currentDigit) {
-                    score++
+                    goodAnswers++
+                } else {
+                    mistakes++
                 }
                 currentDigit = (1..9).random()
                 digitTv.text = currentDigit.toString()
             }
+        }
+
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            handleBackPress()
         }
 
     }
@@ -108,6 +122,10 @@ class DigitSubstitutionTest : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         countDownTimer.cancel()
+    }
+
+    private fun postResult(goodAnswers: Int, mistakes: Int) {
+        //TODO
     }
 
 }
