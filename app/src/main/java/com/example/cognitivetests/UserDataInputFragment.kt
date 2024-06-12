@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import androidx.core.widget.addTextChangedListener
-import androidx.navigation.fragment.findNavController
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
@@ -66,5 +65,10 @@ class UserDataInputFragment : Fragment() {
             }
         }
 
+
+
+    }
+    companion object {
+        fun newInstance() = UserDataInputFragment()
     }
 }
