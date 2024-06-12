@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
+    kotlin("plugin.serialization") version "1.9.21"
     id("androidx.navigation.safeargs")
 }
 
@@ -46,4 +47,12 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+    implementation("io.ktor:ktor-client-android:2.3.7")
+    implementation("io.ktor:ktor-client-json:2.3.7")
+    implementation("io.ktor:ktor-client-serialization:2.3.7")
+    implementation("io.ktor:ktor-client-auth:2.3.7")
+    implementation("io.ktor:ktor-client-logging:2.3.7")
+    implementation("io.ktor:ktor-client-content-negotiation:2.3.7")
+    implementation("io.ktor:ktor-serialization-kotlinx-json:2.3.7")
+    implementation("io.insert-koin:koin-android:3.1.2")
 }
