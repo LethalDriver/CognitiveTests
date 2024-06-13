@@ -18,7 +18,7 @@ import io.ktor.http.*
  * @property defaultHttpClient The HTTP client for making requests with authentication.
  */
 class HttpService(private val noAuthHttpClient: HttpClient, private val defaultHttpClient: HttpClient) {
-    private val usersServiceUrl = "http://ec2-13-49-243-234.eu-north-1.compute.amazonaws.com"
+    private val usersServiceUrl = "https://cognitivetestsbackend.onrender.com/"
 
     /**
      * Authenticates the user.

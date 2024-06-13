@@ -12,7 +12,7 @@ import com.example.cognitivetests.R
 
 
 class InstructionFragment : Fragment() {
-    private val args: com.example.cognitivetests.InstructionFragmentArgs by navArgs()
+    val args: InstructionFragmentArgs by navArgs()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -44,7 +44,7 @@ class InstructionFragment : Fragment() {
                     findNavController().navigate(R.id.action_instructionFragment_to_trailMakingTest)
                 }
                 "digit_substitution" -> {
-                    findNavController().navigate(com.example.cognitivetests.InstructionFragmentDirections.actionInstructionFragmentToDigitSubstitutionTest())
+                    findNavController().navigate(R.id.action_instructionFragment_to_digitSubstitutionTest)
                 }
             }
         }

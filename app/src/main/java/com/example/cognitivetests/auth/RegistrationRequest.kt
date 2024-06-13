@@ -11,4 +11,5 @@ data class RegistrationRequest(
         var password: String,
         var firstName: String,
         var lastName: String,
+        var version: Int = 1,
 )

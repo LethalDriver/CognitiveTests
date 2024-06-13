@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.widget.addTextChangedListener
+import androidx.navigation.fragment.findNavController
 import com.example.cognitivetests.viewModel.LoginViewModel
 import com.example.cognitivetests.activity.MainActivity
 import com.example.cognitivetests.R
@@ -36,6 +37,10 @@ class LoginFragment : Fragment() {
         val editTextEmail = view.findViewById<TextView>(R.id.editTextEmail)
         val editTextPassword = view.findViewById<TextView>(R.id.editTextPassword)
         val loginButton = view.findViewById<TextView>(R.id.loginButton)
+
+        registerLink.setOnClickListener {
+            findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
+        }
 
         editTextEmail.addTextChangedListener { text ->
             viewModel.updateEmail(text.toString())

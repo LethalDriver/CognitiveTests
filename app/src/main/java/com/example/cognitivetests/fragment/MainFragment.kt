@@ -16,13 +16,12 @@ class MainFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_main, container, false)
 
         val stroopTestButton = view.findViewById<Button>(R.id.button_stroop_test)
         stroopTestButton.setOnClickListener {
             val action =
-                com.example.cognitivetests.MainFragmentDirections.actionMainFragmentToInstructionFragment(
+                com.example.cognitivetests.fragment.MainFragmentDirections.actionMainFragmentToInstructionFragment(
                     "stroop"
                 )
             findNavController(view).navigate(action)
@@ -30,7 +29,7 @@ class MainFragment : Fragment() {
         val tmTestButton = view.findViewById<Button>(R.id.button_trail_making_test)
         tmTestButton.setOnClickListener {
             val action =
-                com.example.cognitivetests.MainFragmentDirections.actionMainFragmentToInstructionFragment(
+                com.example.cognitivetests.fragment.MainFragmentDirections.actionMainFragmentToInstructionFragment(
                     "trail_making"
                 )
             findNavController(view).navigate(action)
@@ -38,7 +37,7 @@ class MainFragment : Fragment() {
         val dsTestButton = view.findViewById<Button>(R.id.button_digit_substitution_test)
         dsTestButton.setOnClickListener {
             val action =
-                com.example.cognitivetests.MainFragmentDirections.actionMainFragmentToInstructionFragment(
+                com.example.cognitivetests.fragment.MainFragmentDirections.actionMainFragmentToInstructionFragment(
                     "digit_substitution"
                 )
             findNavController(view).navigate(action)

@@ -7,6 +7,8 @@ import android.content.SharedPreferences
 import com.example.cognitivetests.service.TokenManager
 import com.example.cognitivetests.service.Validator
 import com.example.cognitivetests.auth.ErrorResponse
+import com.example.cognitivetests.viewModel.LoginViewModel
+import com.example.cognitivetests.viewModel.UserDataViewModel
 
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
@@ -94,7 +96,12 @@ val serviceModule = module {
     single<SharedPreferences> {
         androidContext().getSharedPreferences("com.mwdziak.cognitive_tests", Context.MODE_PRIVATE)
     }
-
 }
+
+val viewModelModule = module {
+    single { LoginViewModel(get(), get()) }
+    single { UserDataViewModel(get(), get(), get()) }
+}
+
 
 
