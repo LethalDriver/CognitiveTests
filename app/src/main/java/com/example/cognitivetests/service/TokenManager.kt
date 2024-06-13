@@ -99,6 +99,6 @@ class TokenManager(private val httpClient: HttpClient, private val sharedPrefere
             setBody(tokens)
         }
         val newTokens: AuthenticationResponse = response.body()
-        saveTokens(newTokens.token, newTokens.refreshToken, newTokens.expirationDate)
+        saveTokens(newTokens.access_token, newTokens.refresh_token, newTokens.expiration_date)
     }
 }

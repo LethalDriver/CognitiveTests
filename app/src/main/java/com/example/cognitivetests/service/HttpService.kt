@@ -1,4 +1,7 @@
 package com.example.cognitivetests.service
+import com.example.cognitivetests.DTO.PostDigitSubstitutionTestRequest
+import com.example.cognitivetests.DTO.PostStroopTestRequest
+import com.example.cognitivetests.DTO.PostTrailMakingTestRequest
 import com.example.cognitivetests.auth.AuthenticationRequest
 import com.example.cognitivetests.auth.AuthenticationResponse
 import com.example.cognitivetests.auth.RegistrationRequest
@@ -67,5 +70,29 @@ class HttpService(private val noAuthHttpClient: HttpClient, private val defaultH
             setBody(logoutRequest)
         }
         return response
+    }
+
+    suspend fun postStroopResult(stroopResult: PostStroopTestRequest) {
+        val url = "$usersServiceUrl/stroop"
+        val response = defaultHttpClient.post(url) {
+            contentType(ContentType.Application.Json)
+            setBody(stroopResult)
+        }
+    }
+
+    suspend fun postTrailMakingResult(trailMakingResult: PostTrailMakingTestRequest) {
+        val url = "$usersServiceUrl/trailmaking"
+        val response = defaultHttpClient.post(url) {
+            contentType(ContentType.Application.Json)
+            setBody(trailMakingResult)
+        }
+    }
+
+    suspend fun postDigitSubstitutionResult(digitSubResult: PostDigitSubstitutionTestRequest) {
+        val url = "$usersServiceUrl/digitsubstitution"
+        val response = defaultHttpClient.post(url) {
+            contentType(ContentType.Application.Json)
+            setBody(digitSubResult)
+        }
     }
 }

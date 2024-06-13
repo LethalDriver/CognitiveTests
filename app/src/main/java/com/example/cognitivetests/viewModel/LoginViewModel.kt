@@ -30,7 +30,7 @@ class LoginViewModel(private val tokenManager: TokenManager, private val httpSer
             try {
                 val authenticationRequest = AuthenticationRequest(email.value ?: "", password.value ?: "")
                 val tokensDTO = httpService.authenticate(authenticationRequest)
-                tokenManager.saveTokens(tokensDTO.token, tokensDTO.refreshToken, tokensDTO.expirationDate)
+                tokenManager.saveTokens(tokensDTO.access_token, tokensDTO.refresh_token, tokensDTO.expiration_date)
                 authenticationState.value = AuthenticationState.AUTHENTICATED
             } catch (e: Exception) {
                 exceptionMessage.postValue(e.message)

@@ -7,6 +7,9 @@ import android.content.SharedPreferences
 import com.example.cognitivetests.service.TokenManager
 import com.example.cognitivetests.service.Validator
 import com.example.cognitivetests.auth.ErrorResponse
+import com.example.cognitivetests.fragment.DigitSubstitutionTest
+import com.example.cognitivetests.fragment.StroopTest
+import com.example.cognitivetests.fragment.TrailMakingTestFragment
 import com.example.cognitivetests.viewModel.LoginViewModel
 import com.example.cognitivetests.viewModel.UserDataViewModel
 
@@ -27,6 +30,7 @@ import io.ktor.client.plugins.logging.Logging
 import io.ktor.serialization.kotlinx.json.json
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.qualifier.named
+import org.koin.core.scope.get
 
 /**
  * Module for http client.
@@ -101,6 +105,12 @@ val serviceModule = module {
 val viewModelModule = module {
     single { LoginViewModel(get(), get()) }
     single { UserDataViewModel(get(), get(), get()) }
+}
+
+val fragmentModule = module {
+    single { StroopTest(get()) }
+    single { TrailMakingTestFragment(get()) }
+    single { DigitSubstitutionTest(get())}
 }
 
 

@@ -21,15 +21,19 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.example.cognitivetests.DTO.PostStroopTestRequest
 import com.example.cognitivetests.R
+import com.example.cognitivetests.service.HttpService
 
 // Kotlin and Coroutine imports
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.suspendCancellableCoroutine
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import kotlin.coroutines.resume
 
-class StroopTest : TestFragment() {
+class StroopTest(private val httpService: HttpService) : TestFragment() {
     private lateinit var speechRecognizer: SpeechRecognizer
     private val colors = mapOf(
         "red" to R.color.red,
@@ -117,7 +121,18 @@ class StroopTest : TestFragment() {
     }
 
     private fun postResult(score: Int) {
-        //TODO
+        val currentDateTime = LocalDateTime.now()
+        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-ddTHH:mm:ss")
+
+        val result = PostStroopTestRequest(
+            datetime = currentDateTime.format(formatter),
+            total_score = score,
+            mistake_count = roundsNb - score
+        )
+
+        lifecycleScope.launch {
+            httpService.postStroopResult(result)
+        }
     }
 
     // Suspend function to start listening for speech input

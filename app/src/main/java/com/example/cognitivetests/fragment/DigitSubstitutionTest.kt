@@ -7,11 +7,19 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.activity.addCallback
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.example.cognitivetests.DTO.PostDigitSubstitutionTestRequest
 import com.example.cognitivetests.R
+import com.example.cognitivetests.service.HttpService
 import com.google.android.material.button.MaterialButton
+import kotlinx.coroutines.launch
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
-class DigitSubstitutionTest : TestFragment() {
+class DigitSubstitutionTest(
+    private val httpService: HttpService
+) : TestFragment() {
 
     private lateinit var buttonIdToDigitMap: Map<Int, Int>
     private lateinit var countDownTimer: CountDownTimer
@@ -121,7 +129,19 @@ class DigitSubstitutionTest : TestFragment() {
     }
 
     private fun postResult(goodAnswers: Int, mistakes: Int) {
-        //TODO
+        val currentDateTime = LocalDateTime.now()
+        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-ddTHH:mm:ss")
+
+        val result = PostDigitSubstitutionTestRequest(
+            currentDateTime.format(formatter),
+            mistakes,
+            goodAnswers,
+            0
+        )
+
+        lifecycleScope.launch {
+            httpService.postDigitSubstitutionResult(result)
+        }
     }
 
 }

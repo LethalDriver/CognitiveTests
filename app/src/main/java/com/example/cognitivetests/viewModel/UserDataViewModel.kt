@@ -85,7 +85,7 @@ class UserDataViewModel(private val httpService: HttpService,
 
                 val tokensDTO = httpService.register(registrationRequest)
 
-                tokenManager.saveTokens(tokensDTO.token, tokensDTO.refreshToken, tokensDTO.expirationDate)
+                tokenManager.saveTokens(tokensDTO.access_token, tokensDTO.refresh_token, tokensDTO.expiration_date)
                 authenticationState.value = AuthenticationState.AUTHENTICATED
             } catch (e: Exception) {
                 exceptionMessage.postValue(e.message)

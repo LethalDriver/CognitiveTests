@@ -8,12 +8,20 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.activity.addCallback
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.example.cognitivetests.DTO.PostTrailMakingTestRequest
 import com.example.cognitivetests.R
+import com.example.cognitivetests.service.HttpService
 import com.example.cognitivetests.view.TrailMakingTestListener
 import com.example.cognitivetests.view.TrailMakingTestView
+import kotlinx.coroutines.launch
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
-class TrailMakingTestFragment : TestFragment(), TrailMakingTestListener {
+class TrailMakingTestFragment(
+    private val httpService: HttpService
+) : TestFragment(), TrailMakingTestListener {
     private lateinit var trailMakingTestView: TrailMakingTestView
     private lateinit var timerTextView: TextView
     private var secondsElapsed = 0
@@ -64,6 +72,18 @@ class TrailMakingTestFragment : TestFragment(), TrailMakingTestListener {
     }
 
     private fun postResult(secondsElapsed: Int, mistakes: Int) {
-        //TODO
+        val currentDateTime = LocalDateTime.now()
+        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-ddTHH:mm:ss")
+
+        val result = PostTrailMakingTestRequest(
+            currentDateTime.format(formatter),
+            mistake_count = mistakeCount,
+            total_score = 0,
+            time = secondsElapsed
+        )
+
+        lifecycleScope.launch {
+            httpService.postTrailMakingResult(result)
+        }
     }
 }
