@@ -56,4 +56,6 @@ dependencies {
     implementation("io.ktor:ktor-client-content-negotiation:2.3.7")
     implementation("io.ktor:ktor-serialization-kotlinx-json:2.3.7")
     implementation("io.insert-koin:koin-android:3.1.2")
+    implementation("org.slf4j:slf4j-simple:2.0.7")
+
 }

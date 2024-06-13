@@ -6,6 +6,6 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 data class LogoutRequest(
-    val token: String,
-    val refreshToken: String
+    val access_token: String,
+    val refresh_token: String
 )

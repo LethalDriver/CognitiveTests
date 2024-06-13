@@ -9,7 +9,7 @@ import kotlinx.serialization.Serializable
 data class RegistrationRequest(
         var email: String,
         var password: String,
-        var firstName: String,
-        var lastName: String,
+        var first_name: String,
+        var last_name: String,
         var version: Int = 1,
 )
