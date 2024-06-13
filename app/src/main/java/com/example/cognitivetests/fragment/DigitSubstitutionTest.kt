@@ -1,18 +1,14 @@
-package com.example.cognitivetests
+package com.example.cognitivetests.fragment
 
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.text.Spannable
-import android.text.SpannableString
-import android.text.style.ImageSpan
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.activity.addCallback
-import androidx.core.graphics.drawable.toBitmap
 import androidx.navigation.fragment.findNavController
+import com.example.cognitivetests.R
 import com.google.android.material.button.MaterialButton
 
 class DigitSubstitutionTest : TestFragment() {

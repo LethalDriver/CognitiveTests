@@ -1,4 +1,4 @@
-package com.example.cognitivetests
+package com.example.cognitivetests.fragment
 
 // Android imports
 import android.Manifest
@@ -21,6 +21,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.example.cognitivetests.R
 
 // Kotlin and Coroutine imports
 import kotlinx.coroutines.delay

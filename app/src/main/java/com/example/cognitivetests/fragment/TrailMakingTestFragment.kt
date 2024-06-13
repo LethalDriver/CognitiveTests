@@ -1,17 +1,17 @@
-package com.example.cognitivetests
+package com.example.cognitivetests.fragment
 
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.TextView
-import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.navigation.fragment.findNavController
+import com.example.cognitivetests.R
+import com.example.cognitivetests.view.TrailMakingTestListener
+import com.example.cognitivetests.view.TrailMakingTestView
 
 class TrailMakingTestFragment : TestFragment(), TrailMakingTestListener {
     private lateinit var trailMakingTestView: TrailMakingTestView

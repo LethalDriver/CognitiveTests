@@ -1,4 +1,4 @@
-package com.example.cognitivetests
+package com.example.cognitivetests.fragment
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,10 +8,11 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.example.cognitivetests.R
 
 
 class InstructionFragment : Fragment() {
-    private val args: InstructionFragmentArgs by navArgs()
+    private val args: com.example.cognitivetests.InstructionFragmentArgs by navArgs()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -43,7 +44,7 @@ class InstructionFragment : Fragment() {
                     findNavController().navigate(R.id.action_instructionFragment_to_trailMakingTest)
                 }
                 "digit_substitution" -> {
-                    findNavController().navigate(InstructionFragmentDirections.actionInstructionFragmentToDigitSubstitutionTest())
+                    findNavController().navigate(com.example.cognitivetests.InstructionFragmentDirections.actionInstructionFragmentToDigitSubstitutionTest())
                 }
             }
         }

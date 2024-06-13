@@ -1,4 +1,4 @@
-package com.example.cognitivetests
+package com.example.cognitivetests.viewModel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

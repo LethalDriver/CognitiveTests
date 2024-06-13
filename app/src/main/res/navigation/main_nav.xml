@@ -8,7 +8,7 @@
 
     <fragment
         android:id="@+id/stroopTest"
-        android:name="com.example.cognitivetests.StroopTest"
+        android:name="com.example.cognitivetests.fragment.StroopTest"
         android:label="fragment_stroop_test"
         tools:layout="@layout/fragment_stroop_test"
         >
@@ -20,7 +20,7 @@
 
     <fragment
         android:id="@+id/trailMakingTest"
-        android:name="com.example.cognitivetests.TrailMakingTestFragment"
+        android:name="com.example.cognitivetests.fragment.TrailMakingTestFragment"
         android:label="fragment_trail_making_test"
         tools:layout="@layout/fragment_trail_making_test" >
         <action
@@ -31,7 +31,7 @@
 
     <fragment
         android:id="@+id/instructionFragment"
-        android:name="com.example.cognitivetests.InstructionFragment"
+        android:name="com.example.cognitivetests.fragment.InstructionFragment"
         android:label="fragment_instruction"
         tools:layout="@layout/fragment_instruction" >
         <argument
@@ -67,7 +67,7 @@
 
     <fragment
         android:id="@+id/mainFragment"
-        android:name="com.example.cognitivetests.MainFragment"
+        android:name="com.example.cognitivetests.fragment.MainFragment"
         android:label="fragment_main"
         tools:layout="@layout/fragment_main">
         <action
@@ -81,7 +81,7 @@
 
     <fragment
         android:id="@+id/digitSubstitutionTest"
-        android:name="com.example.cognitivetests.DigitSubstitutionTest"
+        android:name="com.example.cognitivetests.fragment.DigitSubstitutionTest"
         android:label="fragment_digit_substitution_test"
         tools:layout="@layout/fragment_digit_substitution_test" >
         <action
@@ -92,7 +92,7 @@
 
     <fragment
         android:id="@+id/scoreFragment"
-        android:name="com.example.cognitivetests.ScoresFragment"
+        android:name="com.example.cognitivetests.fragment.ScoresFragment"
         android:label="fragment_score"
         tools:layout="@layout/fragment_scores" >
         <action

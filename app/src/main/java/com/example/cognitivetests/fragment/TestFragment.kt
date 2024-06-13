@@ -1,4 +1,4 @@
-package com.example.cognitivetests
+package com.example.cognitivetests.fragment
 
 import android.app.AlertDialog
 import androidx.fragment.app.Fragment

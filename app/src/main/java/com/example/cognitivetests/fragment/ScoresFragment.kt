@@ -1,4 +1,4 @@
-package com.example.cognitivetests
+package com.example.cognitivetests.fragment
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.cognitivetests.R
 import com.example.cognitivetests.recyclerView.Score
 import com.example.cognitivetests.recyclerView.ScoresAdapter
 import com.google.android.material.chip.Chip

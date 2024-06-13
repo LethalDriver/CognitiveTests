@@ -1,4 +1,4 @@
-package com.example.cognitivetests
+package com.example.cognitivetests.fragment
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import androidx.core.widget.addTextChangedListener
+import com.example.cognitivetests.R
+import com.example.cognitivetests.viewModel.UserDataViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
