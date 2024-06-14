@@ -14,15 +14,14 @@ import com.example.cognitivetests.R
 import com.example.cognitivetests.service.HttpService
 import com.google.android.material.button.MaterialButton
 import kotlinx.coroutines.launch
+import org.koin.android.ext.android.inject
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
-class DigitSubstitutionTest(
-    private val httpService: HttpService
-) : TestFragment() {
-
+class DigitSubstitutionTest() : TestFragment() {
     private lateinit var buttonIdToDigitMap: Map<Int, Int>
     private lateinit var countDownTimer: CountDownTimer
+    private val httpService: HttpService by inject()
     private var goodAnswers = 0
     private var mistakes = 0
     private var currentDigit = 1
@@ -52,12 +51,14 @@ class DigitSubstitutionTest(
             }
 
             override fun onFinish() {
-                timerTv.text = "0"
-                val isSaved = showTestCompletedDialog()
-                if (isSaved) {
-                    postResult(goodAnswers, mistakes)
+                lifecycleScope.launch {
+                    timerTv.text = "0"
+                    val isSaved = showTestCompletedDialog()
+                    if (isSaved) {
+                        postResult(goodAnswers, mistakes)
+                    }
+                    findNavController().navigate(R.id.action_digitSubstitutionTest_to_mainFragment)
                 }
-                findNavController().navigate(R.id.action_digitSubstitutionTest_to_mainFragment)
             }
         }
 
@@ -128,9 +129,9 @@ class DigitSubstitutionTest(
         countDownTimer.cancel()
     }
 
-    private fun postResult(goodAnswers: Int, mistakes: Int) {
+    private suspend fun postResult(goodAnswers: Int, mistakes: Int) {
         val currentDateTime = LocalDateTime.now()
-        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-ddTHH:mm:ss")
+        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss")
 
         val result = PostDigitSubstitutionTestRequest(
             currentDateTime.format(formatter),
@@ -139,9 +140,7 @@ class DigitSubstitutionTest(
             0
         )
 
-        lifecycleScope.launch {
-            httpService.postDigitSubstitutionResult(result)
-        }
+        httpService.postDigitSubstitutionResult(result)
     }
 
 }

@@ -23,7 +23,7 @@
             android:textSize="20sp"
             />
 
-        <com.example.cognitivetests.TrailMakingTestView
+        <com.example.cognitivetests.view.TrailMakingTestView
             android:id="@+id/trailMakingTestView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

@@ -45,7 +45,7 @@ class TokenManager(private val httpClient: HttpClient, private val sharedPrefere
      */
     fun parseDate(date: String): Date? {
         val replacedDate = date.replace("CEST", "GMT+2:00")
-        val format = SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.US)
+        val format = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS", Locale.US)
         return format.parse(replacedDate)
     }
 
@@ -93,12 +93,12 @@ class TokenManager(private val httpClient: HttpClient, private val sharedPrefere
         val token = getJwtToken()
         val refreshToken = getRefreshToken()
         val tokens = RefreshRequest(token!!, refreshToken!!)
-        val url = "http://10.0.2.2:8080/users/auth/refresh"
+        val url = "https://cognitivetestsbackend.onrender.com/users/auth/refresh"
         val response: HttpResponse = httpClient.post(url) {
             contentType(ContentType.Application.Json)
             setBody(tokens)
         }
         val newTokens: AuthenticationResponse = response.body()
-        saveTokens(newTokens.access_token, newTokens.refresh_token, newTokens.expiration_date)
+        saveTokens(newTokens.access_token, newTokens.refresh_token, newTokens.refresh_token_exs)
     }
 }

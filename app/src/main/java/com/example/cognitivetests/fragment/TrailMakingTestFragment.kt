@@ -16,14 +16,14 @@ import com.example.cognitivetests.service.HttpService
 import com.example.cognitivetests.view.TrailMakingTestListener
 import com.example.cognitivetests.view.TrailMakingTestView
 import kotlinx.coroutines.launch
+import org.koin.android.ext.android.inject
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
-class TrailMakingTestFragment(
-    private val httpService: HttpService
-) : TestFragment(), TrailMakingTestListener {
+class TrailMakingTestFragment() : TestFragment(), TrailMakingTestListener {
     private lateinit var trailMakingTestView: TrailMakingTestView
     private lateinit var timerTextView: TextView
+    private val httpService: HttpService by inject()
     private var secondsElapsed = 0
     private var mistakeCount = 0
     private val handler = Handler(Looper.getMainLooper())
@@ -53,12 +53,14 @@ class TrailMakingTestFragment(
     }
 
     override fun onTestCompleted() {
-        handler.removeCallbacks(runnable)
-        val isSaved = showTestCompletedDialog()
-        if (isSaved) {
-            postResult(secondsElapsed, mistakeCount)
+        lifecycleScope.launch {
+            handler.removeCallbacks(runnable)
+            val isSaved = showTestCompletedDialog()
+            if (isSaved) {
+                postResult(secondsElapsed, mistakeCount)
+            }
+            findNavController().navigate(R.id.action_trailMakingTest_to_mainFragment)
         }
-        findNavController().navigate(R.id.action_trailMakingTest_to_mainFragment)
     }
 
     override fun onTestStarted() {
@@ -71,9 +73,9 @@ class TrailMakingTestFragment(
         return
     }
 
-    private fun postResult(secondsElapsed: Int, mistakes: Int) {
+    private suspend fun postResult(secondsElapsed: Int, mistakes: Int) {
         val currentDateTime = LocalDateTime.now()
-        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-ddTHH:mm:ss")
+        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss")
 
         val result = PostTrailMakingTestRequest(
             currentDateTime.format(formatter),
@@ -82,8 +84,8 @@ class TrailMakingTestFragment(
             time = secondsElapsed
         )
 
-        lifecycleScope.launch {
-            httpService.postTrailMakingResult(result)
-        }
+
+        httpService.postTrailMakingResult(result)
+
     }
 }

@@ -29,12 +29,14 @@ import com.example.cognitivetests.service.HttpService
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.suspendCancellableCoroutine
+import org.koin.android.ext.android.inject
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import kotlin.coroutines.resume
 
-class StroopTest(private val httpService: HttpService) : TestFragment() {
+class StroopTest() : TestFragment() {
     private lateinit var speechRecognizer: SpeechRecognizer
+    private val httpService: HttpService by inject()
     private val colors = mapOf(
         "red" to R.color.red,
         "green" to R.color.green,
@@ -120,9 +122,9 @@ class StroopTest(private val httpService: HttpService) : TestFragment() {
         }
     }
 
-    private fun postResult(score: Int) {
+    private suspend fun postResult(score: Int) {
         val currentDateTime = LocalDateTime.now()
-        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-ddTHH:mm:ss")
+        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss")
 
         val result = PostStroopTestRequest(
             datetime = currentDateTime.format(formatter),
@@ -130,9 +132,8 @@ class StroopTest(private val httpService: HttpService) : TestFragment() {
             mistake_count = roundsNb - score
         )
 
-        lifecycleScope.launch {
-            httpService.postStroopResult(result)
-        }
+        httpService.postStroopResult(result)
+
     }
 
     // Suspend function to start listening for speech input

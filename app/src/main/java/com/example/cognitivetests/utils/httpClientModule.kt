@@ -108,9 +108,9 @@ val viewModelModule = module {
 }
 
 val fragmentModule = module {
-    single { StroopTest(get()) }
-    single { TrailMakingTestFragment(get()) }
-    single { DigitSubstitutionTest(get())}
+    single { StroopTest() }
+    single { TrailMakingTestFragment() }
+    single { DigitSubstitutionTest()}
 }
 
 

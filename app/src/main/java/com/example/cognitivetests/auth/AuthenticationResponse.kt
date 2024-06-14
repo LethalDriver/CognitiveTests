@@ -9,5 +9,5 @@ import kotlinx.serialization.Serializable
 data class AuthenticationResponse(
         var access_token: String,
         var refresh_token: String,
-        var expiration_date: String
+        var refresh_token_exs: String
 )

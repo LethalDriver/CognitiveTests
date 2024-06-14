@@ -3,6 +3,8 @@ package com.example.cognitivetests.fragment
 import android.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import kotlin.coroutines.resume
+import kotlin.coroutines.suspendCoroutine
 
 open class TestFragment : Fragment() {
     fun handleBackPress() {
@@ -16,18 +18,19 @@ open class TestFragment : Fragment() {
             .show()
     }
 
-    fun showTestCompletedDialog(): Boolean {
-        var result = false
+    suspend fun showTestCompletedDialog(): Boolean = suspendCoroutine { continuation ->
         AlertDialog.Builder(requireContext())
             .setTitle("Test Completed")
             .setMessage("Congratulations! You have completed the test. Do you want to save the results of the test?")
             .setPositiveButton("Yes") { _, _ ->
-                result = true
+                continuation.resume(true)
             }
             .setNegativeButton("No") { _, _ ->
-                result = false
+                continuation.resume(false)
+            }
+            .setOnCancelListener {
+                continuation.resume(false)
             }
             .show()
-        return result
     }
 }
