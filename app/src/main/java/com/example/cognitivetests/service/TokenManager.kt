@@ -3,6 +3,7 @@ package com.example.cognitivetests.service
 import android.content.SharedPreferences
 import com.example.cognitivetests.auth.AuthenticationResponse
 import com.example.cognitivetests.auth.RefreshRequest
+import com.example.cognitivetests.auth.RefreshResponse
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.post
@@ -34,6 +35,17 @@ class TokenManager(private val httpClient: HttpClient, private val sharedPrefere
         editor.putString("JWT_TOKEN", jwtToken)
         editor.putString("REFRESH_TOKEN", refreshToken)
         editor.putString("EXPIRATION_DATE", expirationDate)
+        editor.apply()
+    }
+
+    /**
+     * Updates the access token.
+     *
+     * @param jwtToken The JWT token.
+     */
+    fun updateAccessToken(jwtToken: String) {
+        val editor = sharedPreferences.edit()
+        editor.putString("JWT_TOKEN", jwtToken)
         editor.apply()
     }
 
@@ -93,12 +105,12 @@ class TokenManager(private val httpClient: HttpClient, private val sharedPrefere
         val token = getJwtToken()
         val refreshToken = getRefreshToken()
         val tokens = RefreshRequest(token!!, refreshToken!!)
-        val url = "https://cognitivetestsbackend.onrender.com/users/auth/refresh"
+        val url = "https://cognitivetestsbackend.onrender.com/auth/refresh"
         val response: HttpResponse = httpClient.post(url) {
             contentType(ContentType.Application.Json)
             setBody(tokens)
         }
-        val newTokens: AuthenticationResponse = response.body()
-        saveTokens(newTokens.access_token, newTokens.refresh_token, newTokens.refresh_token_exs)
+        val newTokens: RefreshResponse = response.body()
+        updateAccessToken(newTokens.access_token)
     }
 }
