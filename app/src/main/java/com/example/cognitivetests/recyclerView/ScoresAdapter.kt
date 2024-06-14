@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cognitivetests.R
 
-class ScoresAdapter(private val myDataset: Array<Score>) :
+class ScoresAdapter(private val myDataset: MutableList<Score>) :
     RecyclerView.Adapter<ScoreViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ScoreViewHolder {

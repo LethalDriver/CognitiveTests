@@ -80,7 +80,6 @@ class TrailMakingTestFragment() : TestFragment(), TrailMakingTestListener {
         val result = PostTrailMakingTestRequest(
             currentDateTime.format(formatter),
             mistake_count = mistakeCount,
-            total_score = 0,
             time = secondsElapsed
         )
 

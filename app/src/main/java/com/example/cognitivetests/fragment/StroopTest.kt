@@ -128,7 +128,6 @@ class StroopTest() : TestFragment() {
 
         val result = PostStroopTestRequest(
             datetime = currentDateTime.format(formatter),
-            total_score = score,
             mistake_count = roundsNb - score
         )
 

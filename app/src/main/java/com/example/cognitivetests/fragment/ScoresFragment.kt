@@ -5,14 +5,21 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.cognitivetests.DTO.EvaluationsGetRequest
 import com.example.cognitivetests.R
 import com.example.cognitivetests.recyclerView.Score
 import com.example.cognitivetests.recyclerView.ScoresAdapter
+import com.example.cognitivetests.service.HttpService
 import com.google.android.material.chip.Chip
+import kotlinx.coroutines.launch
+import org.koin.android.ext.android.inject
 
 class ScoresFragment : Fragment() {
+
+    private val httpService: HttpService by inject()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -23,15 +30,17 @@ class ScoresFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        val scores = arrayOf(
-            Score("Trail Making", "2021-09-01", 10, null, null),
-            Score("Stroop", "2021-09-01", null, 3, 60),
-        )
         val recyclerView = view.findViewById<RecyclerView>(R.id.recycler_view)
-        recyclerView.layoutManager = LinearLayoutManager(context)
-        recyclerView.adapter = ScoresAdapter(scores)
 
+        val scores = mutableListOf<Score>()
+
+        lifecycleScope.launch {
+            val evaluations = getScores()
+            val flatScoreArray = mapToFlatScoreArray(evaluations)
+            scores.addAll(flatScoreArray)
+            recyclerView.layoutManager = LinearLayoutManager(context)
+            recyclerView.adapter = ScoresAdapter(scores)
+        }
         val stroopChip = view.findViewById<Chip>(R.id.stroopChip)
         val tmtChip = view.findViewById<Chip>(R.id.tmtChip)
         val digitSubChip = view.findViewById<Chip>(R.id.digitSubChip)
@@ -55,10 +64,42 @@ class ScoresFragment : Fragment() {
                 val filteredScores = if (selectedTestTypes.isEmpty()) {
                     scores
                 } else {
-                    scores.filter { it.testType in selectedTestTypes }.toTypedArray()
+                    scores.filter { it.testType in selectedTestTypes }.toMutableList()
                 }
                 recyclerView.adapter = ScoresAdapter(filteredScores)
             }
         }
+    }
+
+    private suspend fun getScores(): EvaluationsGetRequest {
+        return httpService.fetchAllEvaluations()
+    }
+
+    private suspend fun mapToFlatScoreArray(evaluations: EvaluationsGetRequest): Array<Score> {
+        val scores = mutableListOf<Score>()
+        for (evaluation in evaluations.stroop) {
+            val testType = "Stroop"
+            val date = evaluation.datetime
+            val mistakes = evaluation.mistake_count
+            val score = Score(testType, date, null, mistakes, null)
+            scores.add(score)
+        }
+        for (evaluation in evaluations.digit_substitution) {
+            val testType = "Digit Substitution"
+            val date = evaluation.datetime
+            val mistakes = evaluation.mistake_count
+            val correctAnswers = evaluation.correct_answers
+            val score = Score(testType, date, correctAnswers, mistakes, null)
+            scores.add(score)
+        }
+        for (evaluation in evaluations.trail_making) {
+            val testType = "Trail Making"
+            val date = evaluation.datetime
+            val mistakes = evaluation.mistake_count
+            val time = evaluation.time
+            val score = Score(testType, date, null, mistakes, time)
+            scores.add(score)
+        }
+        return scores.toTypedArray()
     }
 }

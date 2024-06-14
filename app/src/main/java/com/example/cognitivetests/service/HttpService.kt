@@ -1,4 +1,5 @@
 package com.example.cognitivetests.service
+import com.example.cognitivetests.DTO.EvaluationsGetRequest
 import com.example.cognitivetests.DTO.PostDigitSubstitutionTestRequest
 import com.example.cognitivetests.DTO.PostStroopTestRequest
 import com.example.cognitivetests.DTO.PostTrailMakingTestRequest
@@ -73,7 +74,7 @@ class HttpService(private val noAuthHttpClient: HttpClient, private val defaultH
     }
 
     suspend fun postStroopResult(stroopResult: PostStroopTestRequest) {
-        val url = "$usersServiceUrl/stroop"
+        val url = "$usersServiceUrl/evaluation/stroop"
         val response = defaultHttpClient.post(url) {
             contentType(ContentType.Application.Json)
             setBody(stroopResult)
@@ -81,7 +82,7 @@ class HttpService(private val noAuthHttpClient: HttpClient, private val defaultH
     }
 
     suspend fun postTrailMakingResult(trailMakingResult: PostTrailMakingTestRequest) {
-        val url = "$usersServiceUrl/trailmaking"
+        val url = "$usersServiceUrl/evaluation/trailmaking"
         val response = defaultHttpClient.post(url) {
             contentType(ContentType.Application.Json)
             setBody(trailMakingResult)
@@ -89,10 +90,16 @@ class HttpService(private val noAuthHttpClient: HttpClient, private val defaultH
     }
 
     suspend fun postDigitSubstitutionResult(digitSubResult: PostDigitSubstitutionTestRequest) {
-        val url = "$usersServiceUrl/digitsubstitution"
+        val url = "$usersServiceUrl/evaluation/digitsubstitution"
         val response = defaultHttpClient.post(url) {
             contentType(ContentType.Application.Json)
             setBody(digitSubResult)
         }
+    }
+
+    suspend fun fetchAllEvaluations(): EvaluationsGetRequest {
+        val url = "$usersServiceUrl/evaluation/all"
+        val response = defaultHttpClient.get(url)
+        return response.body<EvaluationsGetRequest>()
     }
 }

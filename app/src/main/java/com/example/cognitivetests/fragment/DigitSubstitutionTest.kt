@@ -137,7 +137,6 @@ class DigitSubstitutionTest() : TestFragment() {
             currentDateTime.format(formatter),
             mistakes,
             goodAnswers,
-            0
         )
 
         httpService.postDigitSubstitutionResult(result)
