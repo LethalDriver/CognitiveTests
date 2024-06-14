@@ -16,6 +16,7 @@
 
         <com.google.android.material.chip.Chip
             android:id="@+id/stroopChip"
+            style="@style/Widget.MaterialComponents.Chip.Choice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Stroop"
@@ -23,6 +24,7 @@
 
         <com.google.android.material.chip.Chip
             android:id="@+id/tmtChip"
+            style="@style/Widget.MaterialComponents.Chip.Choice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Trail Making"
@@ -30,6 +32,7 @@
 
         <com.google.android.material.chip.Chip
             android:id="@+id/digitSubChip"
+            style="@style/Widget.MaterialComponents.Chip.Choice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Digit Substitution"/>
