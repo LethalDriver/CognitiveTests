@@ -10,12 +10,11 @@ import com.example.cognitivetests.service.TokenManager
 import com.example.cognitivetests.service.Validator
 
 class UserDataViewModel(private val httpService: HttpService,
-    private val tokenManager: TokenManager, private val validator: Validator): ViewModel() {
-    private val email = MutableLiveData<String>("")
+    private val tokenManager: TokenManager, private val validator: Validator): ViewModel() { val email = MutableLiveData<String>("")
     private val password = MutableLiveData<String>("")
     private val confirmPassword = MutableLiveData<String>("")
-    private val firstName = MutableLiveData<String>("")
-    private val lastName = MutableLiveData<String>("")
+    val firstName = MutableLiveData<String>("")
+    val lastName = MutableLiveData<String>("")
     val isAllFieldsValid = MutableLiveData<Boolean>(false)
     val exceptionMessage = MutableLiveData<String>()
     val authenticationState = MutableLiveData<AuthenticationState>()
@@ -90,6 +89,19 @@ class UserDataViewModel(private val httpService: HttpService,
             } catch (e: Exception) {
                 exceptionMessage.postValue(e.message)
                 authenticationState.value = AuthenticationState.FAILED
+            }
+        }
+    }
+
+    fun fetchCurrentUserData() {
+        viewModelScope.launch {
+            try {
+                val user = httpService.fetchUserInfo()
+                firstName.value = user.first_name
+                lastName.value = user.last_name
+                email.value = user.email
+            } catch (e: Exception) {
+                exceptionMessage.postValue(e.message)
             }
         }
     }

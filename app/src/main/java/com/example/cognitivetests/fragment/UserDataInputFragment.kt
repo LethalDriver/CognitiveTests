@@ -67,8 +67,17 @@ class UserDataInputFragment : Fragment() {
             }
         }
 
+        viewModel.email.observe(viewLifecycleOwner) { email ->
+            editTextEmail.setText(email)
+        }
 
+        viewModel.firstName.observe(viewLifecycleOwner) { firstName ->
+            editTextFirstName.setText(firstName)
+        }
 
+        viewModel.lastName.observe(viewLifecycleOwner) { lastName ->
+            editTextLastName.setText(lastName)
+        }
     }
     companion object {
         fun newInstance() = UserDataInputFragment()
