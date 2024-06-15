@@ -3,6 +3,7 @@ import com.example.cognitivetests.DTO.EvaluationsGetRequest
 import com.example.cognitivetests.DTO.PostDigitSubstitutionTestRequest
 import com.example.cognitivetests.DTO.PostStroopTestRequest
 import com.example.cognitivetests.DTO.PostTrailMakingTestRequest
+import com.example.cognitivetests.DTO.UserDTO
 import com.example.cognitivetests.auth.AuthenticationRequest
 import com.example.cognitivetests.auth.AuthenticationResponse
 import com.example.cognitivetests.auth.RegistrationRequest
@@ -102,4 +103,11 @@ class HttpService(private val noAuthHttpClient: HttpClient, private val defaultH
         val response = defaultHttpClient.get(url)
         return response.body<EvaluationsGetRequest>()
     }
+
+    suspend fun fetchUserInfo(): UserDTO {
+        val url = "$usersServiceUrl/user/me"
+        val response = defaultHttpClient.get(url)
+        return response.body<UserDTO>()
+    }
 }
+

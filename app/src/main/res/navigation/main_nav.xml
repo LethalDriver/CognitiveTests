@@ -101,5 +101,16 @@
             />
     </fragment>
 
+    <fragment
+        android:id="@+id/userProfileFragment"
+        android:name="com.example.cognitivetests.fragment.UserProfileFragment"
+        android:label="fragment_user_profile"
+        tools:layout="@layout/fragment_user_profile" >
+        <action
+            android:id="@+id/action_userProfileFragment_to_mainFragment"
+            app:destination="@id/mainFragment"
+            />
+    </fragment>
+
 
 </navigation>
