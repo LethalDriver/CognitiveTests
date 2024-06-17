@@ -83,7 +83,7 @@ class HttpService(private val noAuthHttpClient: HttpClient, private val defaultH
     }
 
     suspend fun postTrailMakingResult(trailMakingResult: PostTrailMakingTestRequest) {
-        val url = "$usersServiceUrl/evaluation/trailmaking"
+        val url = "$usersServiceUrl/evaluation/trail_making"
         val response = defaultHttpClient.post(url) {
             contentType(ContentType.Application.Json)
             setBody(trailMakingResult)
@@ -91,7 +91,7 @@ class HttpService(private val noAuthHttpClient: HttpClient, private val defaultH
     }
 
     suspend fun postDigitSubstitutionResult(digitSubResult: PostDigitSubstitutionTestRequest) {
-        val url = "$usersServiceUrl/evaluation/digitsubstitution"
+        val url = "$usersServiceUrl/evaluation/digit_substitution"
         val response = defaultHttpClient.post(url) {
             contentType(ContentType.Application.Json)
             setBody(digitSubResult)

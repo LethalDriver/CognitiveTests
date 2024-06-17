@@ -15,6 +15,7 @@ data class GetStroopTestRequest(
     val version: Int,
     val datetime: String,
     val mistake_count: Int,
+    val total_score: Int
 )
 
 @Serializable
@@ -26,11 +27,12 @@ data class PostDigitSubstitutionTestRequest(
 
 @Serializable
 data class GetDigitSubstitutionTestRequest(
-    val digit_substitution_id: Int,
+    val digit_sub_id: Int,
     val version: Int,
     val datetime: String,
     val mistake_count: Int,
     val correct_answers: Int,
+    val total_score: Int
 )
 
 @Serializable
@@ -47,6 +49,7 @@ data class GetTrailMakingTestRequest(
     val datetime: String,
     val mistake_count: Int,
     val time: Int,
+    val total_score: Int
 )
 
 @Serializable
