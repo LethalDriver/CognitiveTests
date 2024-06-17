@@ -1,6 +1,7 @@
 package com.example.cognitivetests.fragment
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -39,6 +40,7 @@ class UserDataInputFragment : Fragment() {
         }
 
         editTextLastName.addTextChangedListener { text ->
+            Log.d("UserDataInputFragment", "Last name: $text")
             viewModel.updateLastName(text.toString())
             if (!viewModel.isLastNameValid()) {
                 editTextLastName.error = "Last name cannot be blank"
@@ -65,6 +67,21 @@ class UserDataInputFragment : Fragment() {
             if (!viewModel.isConfirmPasswordValid()) {
                 editTextConfirmPassword.error = "Passwords do not match"
             }
+        }
+
+        viewModel.fetchedEmail.observe(viewLifecycleOwner) { email ->
+            editTextEmail.setText(email)
+            editTextEmail.error = null
+        }
+
+        viewModel.fetchedFirstName.observe(viewLifecycleOwner) { firstName ->
+            editTextFirstName.setText(firstName)
+            editTextFirstName.error = null
+        }
+
+        viewModel.fetchedLastName.observe(viewLifecycleOwner) { lastName ->
+            editTextLastName.setText(lastName)
+            editTextLastName.error = null
         }
     }
     companion object {

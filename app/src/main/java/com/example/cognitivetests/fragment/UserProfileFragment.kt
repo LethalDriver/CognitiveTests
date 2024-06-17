@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.example.cognitivetests.DTO.UserDTO
 import com.example.cognitivetests.R
 import com.example.cognitivetests.service.HttpService
@@ -36,6 +37,7 @@ class UserProfileFragment : Fragment() {
         val textViewFirstName = view.findViewById<TextView>(R.id.firstName)
         val textViewLastName = view.findViewById<TextView>(R.id.lastName)
         val textViewEmail = view.findViewById<TextView>(R.id.email)
+        val editProfileBtn = view.findViewById<TextView>(R.id.editProfileButton)
 
         lifecycleScope.launch {
             val user = fetchUserData()
@@ -43,10 +45,15 @@ class UserProfileFragment : Fragment() {
             textViewLastName.text = user.last_name
             textViewEmail.text = user.email
         }
+
+        editProfileBtn.setOnClickListener {
+            findNavController().navigate(R.id.action_userProfileFragment_to_editUserData)
+        }
+
+
     }
 
     private suspend fun fetchUserData(): UserDTO {
-        val user = httpService.fetchUserInfo()
-        return user
+        return httpService.fetchUserInfo()
     }
 }

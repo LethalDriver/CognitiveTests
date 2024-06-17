@@ -26,7 +26,9 @@ class TrailMakingTestView(context: Context, attrs: AttributeSet) : View(context,
         strokeWidth = 5f
         style = Paint.Style.STROKE
     }
-    private val dotPaint = Paint()
+    private val dotPaint = Paint().apply {
+        color = Color.rgb(98, 0, 238)
+    }
     private val textPaint = Paint().apply {
         textSize = 30f
         color = Color.WHITE

@@ -1,5 +1,6 @@
 package com.example.cognitivetests.viewModel
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -18,6 +19,10 @@ class UserDataViewModel(private val httpService: HttpService,
     val isAllFieldsValid = MutableLiveData<Boolean>(false)
     val exceptionMessage = MutableLiveData<String>()
     val authenticationState = MutableLiveData<AuthenticationState>()
+
+    val fetchedFirstName = MutableLiveData<String>("")
+    val fetchedLastName = MutableLiveData<String>("")
+    val fetchedEmail = MutableLiveData<String>("")
     enum class AuthenticationState {
         LOADING, AUTHENTICATED, FAILED
     }
@@ -80,7 +85,7 @@ class UserDataViewModel(private val httpService: HttpService,
             authenticationState.value = AuthenticationState.LOADING
             try {
                 val registrationRequest = RegistrationRequest(email.value ?: "", password.value ?: "",
-                    firstName.value ?: "", lastName.value ?: "")
+                    firstName.value ?: "", lastName.value ?: "", 1)
 
                 val tokensDTO = httpService.register(registrationRequest)
 
@@ -97,9 +102,24 @@ class UserDataViewModel(private val httpService: HttpService,
         viewModelScope.launch {
             try {
                 val user = httpService.fetchUserInfo()
-                firstName.value = user.first_name
-                lastName.value = user.last_name
-                email.value = user.email
+                fetchedFirstName.postValue(user.first_name)
+                fetchedLastName.postValue(user.last_name)
+                fetchedEmail.postValue(user.email)
+                updateFirstName(user.first_name)
+                updateLastName(user.last_name)
+                updateEmail(user.email)
+            } catch (e: Exception) {
+                exceptionMessage.postValue(e.message)
+            }
+        }
+    }
+
+    fun updateUserData() {
+        viewModelScope.launch {
+            try {
+                val registrationRequest = RegistrationRequest(email.value ?: "", password.value ?: "",
+                    firstName.value ?: "", lastName.value ?: "", 1)
+                httpService.updateUserInfo(registrationRequest)
             } catch (e: Exception) {
                 exceptionMessage.postValue(e.message)
             }

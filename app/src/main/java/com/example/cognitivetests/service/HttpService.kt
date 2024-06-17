@@ -109,5 +109,13 @@ class HttpService(private val noAuthHttpClient: HttpClient, private val defaultH
         val response = defaultHttpClient.get(url)
         return response.body<UserDTO>()
     }
+
+    suspend fun updateUserInfo(registrationRequest: RegistrationRequest) {
+        val url = "$usersServiceUrl/user/me"
+        defaultHttpClient.put(url) {
+            contentType(ContentType.Application.Json)
+            setBody(registrationRequest)
+        }
+    }
 }
 

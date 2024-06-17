@@ -71,7 +71,6 @@ class StroopTest() : TestFragment() {
         super.onViewCreated(view, savedInstanceState)
         val listenButton = view.findViewById<Button>(R.id.speechListenButton)
         val startTestButton = view.findViewById<Button>(R.id.startTestButton)
-        val roundTv = view.findViewById<TextView>(R.id.roundNumberTv)
         val scoreTv = view.findViewById<TextView>(R.id.scoreTv)
 
         startTestButton.setOnClickListener {
@@ -91,7 +90,7 @@ class StroopTest() : TestFragment() {
             }
             lifecycleScope.launch {
                 listenForColor()
-                nextRound(roundTv, scoreTv, listenButton)
+                nextRound(scoreTv, listenButton)
             }
         }
 
@@ -102,12 +101,10 @@ class StroopTest() : TestFragment() {
     }
 
     private suspend fun nextRound(
-        roundTv: TextView,
         scoreTv: TextView,
         listenButton: Button
     ) {
         currentRound++
-        roundTv.text = "Round: $currentRound"
         scoreTv.text = "Score: $score"
         if (currentRound < roundsNb) {
             listenButton.isEnabled = false

@@ -110,7 +110,22 @@
             android:id="@+id/action_userProfileFragment_to_mainFragment"
             app:destination="@id/mainFragment"
             />
+        <action
+            android:id="@+id/action_userProfileFragment_to_editUserData"
+            app:destination="@id/editUserData"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
     </fragment>
+
+    <fragment
+        android:id="@+id/editUserData"
+        android:name="com.example.cognitivetests.fragment.EditProfileDataFragment"
+        android:label="fragment_register"
+        tools:layout="@layout/fragment_edit_profile_data"/>
+
 
 
 </navigation>
