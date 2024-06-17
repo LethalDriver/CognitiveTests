@@ -102,9 +102,8 @@ class TokenManager(private val httpClient: HttpClient, private val sharedPrefere
      * Refreshes the tokens.
      */
     suspend fun refreshTokens() {
-        val token = getJwtToken()
         val refreshToken = getRefreshToken()
-        val tokens = RefreshRequest(token!!, refreshToken!!)
+        val tokens = RefreshRequest(refreshToken!!)
         val url = "https://cognitivetestsbackend.onrender.com/auth/refresh"
         val response: HttpResponse = httpClient.post(url) {
             contentType(ContentType.Application.Json)

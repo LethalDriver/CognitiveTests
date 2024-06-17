@@ -7,6 +7,5 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 data class RefreshRequest(
-    val access_token: String,
     val refresh_token: String
 )

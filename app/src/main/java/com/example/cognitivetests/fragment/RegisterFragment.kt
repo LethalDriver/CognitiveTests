@@ -29,10 +29,7 @@ class RegisterFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val childFragment = UserDataInputFragment.newInstance()
-        childFragmentManager.beginTransaction()
-            .replace(R.id.child_fragment_container, childFragment)
-            .commit()
-
+        childFragmentManager.beginTransaction().replace(R.id.child_fragment_container, childFragment).commit()
         val button = view.findViewById<Button>(R.id.button)
 
         button.setOnClickListener {
