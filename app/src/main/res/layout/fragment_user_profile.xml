@@ -100,7 +100,7 @@
                     style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                     android:text="Logout"
                     android:id="@+id/logoutButton"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="8dp"
                     />
 
                 <Button
@@ -108,11 +108,9 @@
                     android:layout_height="wrap_content"
                     android:text="Delete Account"
                     android:id="@+id/deleteAccountButton"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="8dp"
                     style="@style/DeleteButtonStyle"
                     />
-
-
 
 
         </LinearLayout>

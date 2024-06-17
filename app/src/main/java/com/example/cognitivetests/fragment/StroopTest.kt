@@ -24,6 +24,8 @@ import androidx.navigation.fragment.findNavController
 import com.example.cognitivetests.DTO.PostStroopTestRequest
 import com.example.cognitivetests.R
 import com.example.cognitivetests.service.HttpService
+import com.example.cognitivetests.utils.showSnackBar
+import com.google.android.material.snackbar.Snackbar
 
 // Kotlin and Coroutine imports
 import kotlinx.coroutines.delay
@@ -141,7 +143,7 @@ class StroopTest() : TestFragment() {
         speechRecognizer.startListening(intent)
         speechRecognizer.setRecognitionListener(object : RecognitionListener {
             override fun onReadyForSpeech(params: Bundle?) {
-                Toast.makeText(context, "Listening...", Toast.LENGTH_SHORT).show()
+                Snackbar.make(requireView(), "Speak now", Snackbar.LENGTH_SHORT).show()
             }
 
             override fun onBeginningOfSpeech() {
@@ -169,11 +171,10 @@ class StroopTest() : TestFragment() {
             }
 
             override fun onPartialResults(partialResults: Bundle?) {
-                TODO("Not yet implemented")
+                showSnackBar("Please repeat the color once again", true)
             }
 
             override fun onEvent(eventType: Int, params: Bundle?) {
-                TODO("Not yet implemented")
             }
 
         })
@@ -203,13 +204,13 @@ class StroopTest() : TestFragment() {
         val result = startListening()
         if (result != null) {
             if (result.equals(displayedColor, ignoreCase = true)) {
-                Toast.makeText(context, "Correct!", Toast.LENGTH_LONG).show()
+                showSnackBar("Correct", false)
                 score++
             } else {
-                Toast.makeText(context, "Incorrect, try again", Toast.LENGTH_LONG).show()
+                showSnackBar("Incorrect", true)
             }
         } else {
-            Toast.makeText(context, "No result from speech recognition", Toast.LENGTH_SHORT).show()
+            showSnackBar("Please speak the name of the color once again", true)
         }
     }
 
