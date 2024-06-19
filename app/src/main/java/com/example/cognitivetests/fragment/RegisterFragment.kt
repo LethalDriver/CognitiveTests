@@ -7,6 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.TextView
+import androidx.navigation.fragment.findNavController
 import com.example.cognitivetests.R
 import com.example.cognitivetests.activity.MainActivity
 import com.example.cognitivetests.viewModel.LoginViewModel
@@ -56,6 +58,12 @@ class RegisterFragment : Fragment() {
                     button.isEnabled = true
                 }
             }
+        }
+
+        val loginLink = view.findViewById<TextView>(R.id.loginLink)
+
+        loginLink.setOnClickListener {
+            findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
         }
     }
 }
