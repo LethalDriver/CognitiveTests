@@ -5,11 +5,14 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center_horizontal"
-    tools:context=".fragment.ScoresFragment">
+    tools:context=".fragment.ScoresFragment"
+    android:background="@drawable/gradient_background"
+    >
 
 
 
     <com.google.android.material.chip.ChipGroup
+        android:layout_marginTop="16dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         >
@@ -45,6 +48,6 @@
         android:layout_weight="1"
         android:id="@+id/recycler_view"
         android:padding="10dp"
-        android:layout_marginTop="10dp"/>
+        android:layout_marginTop="16dp"/>
 
 </LinearLayout>

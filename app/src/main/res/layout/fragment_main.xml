@@ -5,14 +5,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context=".activity.MainActivity"
-    android:padding="10dp">
+    android:padding="16dp"
+    android:background="@drawable/gradient_background"
+    >
 
-    <Button
+    <android.widget.Button
         android:id="@+id/button_stroop_test"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="Stroop Test"
+        android:text="Stroop"
+        android:backgroundTint="@null"
+        android:background="@drawable/button_white_outline"
         android:textSize="30sp"
         android:textColor="@android:color/white"
         android:gravity="center"
@@ -21,27 +25,31 @@
         app:cornerRadius="0dp"
         />
 
-    <Button
+    <android.widget.Button
         android:id="@+id/button_trail_making_test"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="Trail Making Test"
+        android:text="Trail Making"
         android:textSize="30sp"
         android:textColor="@android:color/white"
+        android:backgroundTint="@null"
+        android:background="@drawable/button_white_outline"
         android:gravity="center"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
         app:cornerRadius="0dp"/>
 
-    <Button
+    <android.widget.Button
         android:id="@+id/button_digit_substitution_test"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="Digit Substitution Test"
+        android:text="Digit Substitution"
         android:textSize="30sp"
         android:textColor="@android:color/white"
+        android:backgroundTint="@null"
+        android:background="@drawable/button_white_outline"
         android:gravity="center"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"

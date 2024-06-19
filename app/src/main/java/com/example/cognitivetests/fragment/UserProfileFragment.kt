@@ -44,7 +44,6 @@ class UserProfileFragment : Fragment() {
         val textViewEmail = view.findViewById<TextView>(R.id.email)
         val editProfileBtn = view.findViewById<TextView>(R.id.editProfileButton)
         val logoutButton = view.findViewById<TextView>(R.id.logoutButton)
-        val deleteAccountButton = view.findViewById<TextView>(R.id.deleteAccountButton)
 
         lifecycleScope.launch {
             val user = fetchUserData()
