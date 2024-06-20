@@ -20,7 +20,7 @@ class TrailMakingTestView(context: Context, attrs: AttributeSet) : View(context,
     private var isTestStarted = false
     private var processTouchEvent = true
     private var listener: TrailMakingTestListener? = null
-    private val dotCount = 10
+    private val dotCount = 20
     private val dotRadius = 30f
     private val linePaint = Paint().apply {
         strokeWidth = 5f
