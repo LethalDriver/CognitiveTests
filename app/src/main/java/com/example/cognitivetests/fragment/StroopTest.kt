@@ -4,6 +4,7 @@ package com.example.cognitivetests.fragment
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.drawable.RippleDrawable
 import android.os.Bundle
 import android.speech.RecognitionListener
 import android.speech.RecognizerIntent
@@ -11,6 +12,8 @@ import android.speech.SpeechRecognizer
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
+import android.view.animation.ScaleAnimation
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
@@ -25,6 +28,7 @@ import com.example.cognitivetests.DTO.PostStroopTestRequest
 import com.example.cognitivetests.R
 import com.example.cognitivetests.service.HttpService
 import com.example.cognitivetests.utils.showSnackBar
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 
 // Kotlin and Coroutine imports
@@ -71,7 +75,7 @@ class StroopTest() : TestFragment() {
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val listenButton = view.findViewById<Button>(R.id.speechListenButton)
+        val listenButton = view.findViewById<FloatingActionButton>(R.id.speechListenButton)
         val startTestButton = view.findViewById<Button>(R.id.startTestButton)
         val scoreTv = view.findViewById<TextView>(R.id.scoreTv)
 
@@ -104,7 +108,7 @@ class StroopTest() : TestFragment() {
 
     private suspend fun nextRound(
         scoreTv: TextView,
-        listenButton: Button
+        listenButton: FloatingActionButton
     ) {
         currentRound++
         scoreTv.text = "Score: $score"
@@ -140,10 +144,25 @@ class StroopTest() : TestFragment() {
             putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
             putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE, context?.packageName)
         }
+
+        val listenButton = view?.findViewById<FloatingActionButton>(R.id.speechListenButton)
+
         speechRecognizer.startListening(intent)
         speechRecognizer.setRecognitionListener(object : RecognitionListener {
             override fun onReadyForSpeech(params: Bundle?) {
                 Snackbar.make(requireView(), "Speak now", Snackbar.LENGTH_SHORT).show()
+                val scaleAnimation = ScaleAnimation(
+                    1f, 1.2f,  // Scale from 100% to 120%
+                    1f, 1.2f,  // Scale from 100% to 120%
+                    Animation.RELATIVE_TO_SELF, 0.5f,  // Pivot point is at the center of the button
+                    Animation.RELATIVE_TO_SELF, 0.5f
+                )
+                scaleAnimation.duration = 500  // Duration in milliseconds
+                scaleAnimation.repeatCount = Animation.INFINITE  // Repeat indefinitely
+                scaleAnimation.repeatMode = Animation.REVERSE  // Reverse each alternate repetition
+
+                // Start the animation
+                listenButton?.startAnimation(scaleAnimation)
             }
 
             override fun onBeginningOfSpeech() {
@@ -156,6 +175,7 @@ class StroopTest() : TestFragment() {
             }
 
             override fun onEndOfSpeech() {
+                listenButton?.clearAnimation()
             }
 
             override fun onError(error: Int) {
