@@ -22,6 +22,8 @@ class InstructionAdapter(private val context: Context, private val instructions:
         textView.text = instructions[position]
         textView.textSize = 20f
         textView.gravity = Gravity.CENTER
+        textView.setTextColor(
+            context.resources.getColor(android.R.color.black))
         container.addView(textView)
         return textView
     }
