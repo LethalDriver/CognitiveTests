@@ -12,9 +12,9 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
+        android:background="@color/white"
         android:title="Cognitive Tests"
-        app:titleTextColor="@color/white"
+        app:titleTextColor="@color/primary"
         />
 
     <androidx.fragment.app.FragmentContainerView
