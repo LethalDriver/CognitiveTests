@@ -9,7 +9,6 @@ import android.view.View
 import android.widget.Toast
 import kotlin.random.Random
 
-
 interface TrailMakingTestListener {
     fun onTestCompleted()
     fun onTestStarted()
@@ -17,9 +16,11 @@ interface TrailMakingTestListener {
 }
 
 class TrailMakingTestView(context: Context, attrs: AttributeSet) : View(context, attrs) {
+    private lateinit var dots: List<Pair<PointF, String>>
     private var isTestStarted = false
     private var processTouchEvent = true
     private var listener: TrailMakingTestListener? = null
+    private var testPart = 1
     private val dotCount = 20
     private val dotRadius = 30f
     private val linePaint = Paint().apply {
@@ -33,7 +34,6 @@ class TrailMakingTestView(context: Context, attrs: AttributeSet) : View(context,
         textSize = 30f
         color = Color.WHITE
     }
-    private lateinit var dots: List<PointF>
     private val path = Path()
     private val touchedDotsOrder = mutableListOf<Int>()
     private val textBounds = Rect()
@@ -43,10 +43,12 @@ class TrailMakingTestView(context: Context, attrs: AttributeSet) : View(context,
         dots = mutableListOf()
         while (dots.size < dotCount) {
             var newDot: PointF
+            var label: String
             do {
                 newDot = PointF(dotRadius + Random.nextFloat() * (width - 2 * dotRadius), dotRadius + Random.nextFloat() * (height - 2 * dotRadius))
-            } while (dots.any { isOverlapping(it, newDot) })
-            (dots as MutableList<PointF>).add(newDot)
+                label = if (testPart == 1) (dots.size + 1).toString() else if (dots.size % 2 == 0) (dots.size / 2 + 1).toString() else ('A' + dots.size / 2).toString()
+            } while (dots.any { isOverlapping(it.first, newDot) })
+            (dots as MutableList<Pair<PointF, String>>).add(Pair(newDot, label))
         }
     }
 
@@ -54,19 +56,6 @@ class TrailMakingTestView(context: Context, attrs: AttributeSet) : View(context,
         val dx = dot1.x - dot2.x
         val dy = dot1.y - dot2.y
         return dx * dx + dy * dy <= 4 * dotRadius * dotRadius
-    }
-
-    override fun onDraw(canvas: Canvas) {
-        super.onDraw(canvas)
-        canvas.drawPath(path, linePaint)
-        dots.forEachIndexed { index, point ->
-            canvas.drawCircle(point.x, point.y, dotRadius, dotPaint)
-            val text = (index + 1).toString()
-            textPaint.getTextBounds(text, 0, text.length, textBounds)
-            val textWidth = textPaint.measureText(text)
-            val textHeight = textBounds.height()
-            canvas.drawText(text, point.x - textWidth / 2, point.y + textHeight / 2, textPaint)
-        }
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -98,7 +87,7 @@ class TrailMakingTestView(context: Context, attrs: AttributeSet) : View(context,
     }
 
     private fun checkTouchingDot(x: Float, y: Float) {
-        dots.forEachIndexed { index, dot ->
+        dots.forEachIndexed { index, (dot, label) ->
             if (isTouchingDot(PointF(x, y), dot)) {
                 if (!touchedDotsOrder.contains(index)) {
                     if (index != touchedDotsOrder.size) {
@@ -108,6 +97,18 @@ class TrailMakingTestView(context: Context, attrs: AttributeSet) : View(context,
                     touchedDotsOrder.add(index)
                 }
             }
+        }
+    }
+
+    override fun onDraw(canvas: Canvas) {
+        super.onDraw(canvas)
+        canvas.drawPath(path, linePaint)
+        dots.forEachIndexed { index, (point, label) ->
+            canvas.drawCircle(point.x, point.y, dotRadius, dotPaint)
+            textPaint.getTextBounds(label, 0, label.length, textBounds)
+            val textWidth = textPaint.measureText(label)
+            val textHeight = textBounds.height()
+            canvas.drawText(label, point.x - textWidth / 2, point.y + textHeight / 2, textPaint)
         }
     }
 
@@ -125,9 +126,15 @@ class TrailMakingTestView(context: Context, attrs: AttributeSet) : View(context,
         if (touchedDotsOrder.size != dotCount) {
             return
         }
-        listener?.onTestCompleted()
+        if (testPart == 1) {
+            testPart++
+            touchedDotsOrder.clear()
+            onSizeChanged(width, height, width, height)
+            invalidate()
+        } else {
+            listener?.onTestCompleted()
+        }
     }
-
 
     private fun onMistakeMade() {
         listener?.onMistake()
