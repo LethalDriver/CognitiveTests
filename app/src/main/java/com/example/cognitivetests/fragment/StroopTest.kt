@@ -76,17 +76,12 @@ class StroopTest() : TestFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val listenButton = view.findViewById<FloatingActionButton>(R.id.speechListenButton)
-        val startTestButton = view.findViewById<Button>(R.id.startTestButton)
         val scoreTv = view.findViewById<TextView>(R.id.scoreTv)
 
-        startTestButton.setOnClickListener {
-            startTestButton.visibility = View.GONE
-            listenButton.visibility = View.VISIBLE
-            lifecycleScope.launch {
-                listenButton.isEnabled = false
-                displayedColor = showColor(3000L)
-                listenButton.isEnabled = true
-            }
+        lifecycleScope.launch {
+            showCountdownOnTv(3)
+            displayedColor = showColor(3000L)
+            listenButton.isEnabled = true
         }
 
 
@@ -111,7 +106,7 @@ class StroopTest() : TestFragment() {
         listenButton: FloatingActionButton
     ) {
         currentRound++
-        scoreTv.text = "Score: $score"
+        scoreTv.text = "$score/$roundsNb"
         if (currentRound < roundsNb) {
             listenButton.isEnabled = false
             displayedColor = showColor(3000L)
@@ -150,7 +145,6 @@ class StroopTest() : TestFragment() {
         speechRecognizer.startListening(intent)
         speechRecognizer.setRecognitionListener(object : RecognitionListener {
             override fun onReadyForSpeech(params: Bundle?) {
-                Snackbar.make(requireView(), "Speak now", Snackbar.LENGTH_SHORT).show()
                 val scaleAnimation = ScaleAnimation(
                     1f, 1.2f,  // Scale from 100% to 120%
                     1f, 1.2f,  // Scale from 100% to 120%
@@ -232,6 +226,15 @@ class StroopTest() : TestFragment() {
         } else {
             showSnackBar("Please speak the name of the color once again", true)
         }
+    }
+
+    private suspend fun showCountdownOnTv(countDownFrom: Int) {
+        val countDownTv = view?.findViewById<TextView>(R.id.colorTv)
+        for (i in countDownFrom downTo 1) {
+            countDownTv?.text = i.toString()
+            delay(1000)
+        }
+        countDownTv?.text = ""
     }
 
 
