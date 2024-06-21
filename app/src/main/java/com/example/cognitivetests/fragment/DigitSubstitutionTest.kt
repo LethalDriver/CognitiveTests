@@ -5,14 +5,17 @@ import android.os.CountDownTimer
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import androidx.activity.addCallback
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.cognitivetests.DTO.PostDigitSubstitutionTestRequest
 import com.example.cognitivetests.R
 import com.example.cognitivetests.service.HttpService
 import com.google.android.material.button.MaterialButton
+import com.google.android.material.progressindicator.LinearProgressIndicator
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import java.time.LocalDateTime
@@ -37,22 +40,24 @@ class DigitSubstitutionTest() : TestFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val timerTv = view.findViewById<TextView>(R.id.timerTv)
+        val progressIndicator = view.findViewById<LinearProgressIndicator>(R.id.progressIndicator)
         val digitTv = view.findViewById<TextView>(R.id.digitTv)
 
+        progressIndicator.max = 120
+
+        progressIndicator.progress = 0
 
         currentDigit = (1..9).random()
         digitTv.text = currentDigit.toString()
 
 
-        countDownTimer = object : CountDownTimer(60000, 1000) {
+        countDownTimer = object : CountDownTimer(120000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
-                timerTv.text = (millisUntilFinished / 1000).toString()
+                progressIndicator.progress += 1
             }
 
             override fun onFinish() {
                 lifecycleScope.launch {
-                    timerTv.text = "0"
                     val isSaved = showTestCompletedDialog()
                     if (isSaved) {
                         postResult(goodAnswers, mistakes)
@@ -98,9 +103,10 @@ class DigitSubstitutionTest() : TestFragment() {
         for (i in buttonIdToDigitMap.keys.indices) {
             val button = view.findViewById<MaterialButton>(buttonIds[i])
             val digit = buttonIdToDigitMap[buttonIds[i]]
-            val legendButton = view.findViewById<MaterialButton>(legendButtonsIds[digit!! - 1])
+            val legendButton = view.findViewById<Button>(legendButtonsIds[digit!! - 1])
             val buttonIcon = button.icon
             val newIcon = buttonIcon.constantState?.newDrawable() // Create a new Drawable instance
+            context?.let { ContextCompat.getColor(it, R.color.white) }?.let { newIcon?.setTint(it) } // Set the tint to white
             legendButton.background = newIcon
         }
 

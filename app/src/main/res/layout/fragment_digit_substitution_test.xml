@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
+    android:background="@drawable/gradient_background"
     >
 
 
@@ -15,6 +16,8 @@
         android:layout_marginEnd="48dp"
         android:layout_marginBottom="32dp"
         app:icon="@drawable/baseline_triangle_24"
+        android:backgroundTint="@color/white"
+        app:iconTint="@color/primary"
         app:iconGravity="textStart"
         app:iconPadding="0dp"
         app:iconSize="96dp"
@@ -27,6 +30,8 @@
         android:layout_height="96dp"
         app:iconPadding="0dp"
         app:iconGravity="textStart"
+        android:backgroundTint="@color/white"
+        app:iconTint="@color/primary"
         app:iconSize="64dp"
         app:icon="@drawable/baseline_circle_24"
         app:layout_constraintBottom_toTopOf="@+id/arrowDownBtn"
@@ -40,6 +45,8 @@
         android:layout_marginStart="48dp"
         app:iconPadding="0dp"
         app:iconGravity="textStart"
+        android:backgroundTint="@color/white"
+        app:iconTint="@color/primary"
         app:iconSize="96dp"
         app:icon="@drawable/baseline_horizontal_line_24"
         app:layout_constraintBottom_toTopOf="@+id/arrowLeftBtn"
@@ -50,6 +57,8 @@
         android:layout_width="96dp"
         android:layout_height="96dp"
         app:icon="@drawable/baseline_keyboard_arrow_up_24"
+        android:backgroundTint="@color/white"
+        app:iconTint="@color/primary"
         app:iconGravity="textStart"
         app:iconPadding="0dp"
         app:iconSize="96dp"
@@ -64,6 +73,8 @@
         android:layout_marginEnd="48dp"
         app:iconPadding="0dp"
         app:iconGravity="textStart"
+        android:backgroundTint="@color/white"
+        app:iconTint="@color/primary"
         app:iconSize="96dp"
         app:icon="@drawable/baseline_cross_24"
         app:layout_constraintBottom_toTopOf="@+id/arrowRightBtn"
@@ -76,6 +87,8 @@
         android:layout_marginStart="48dp"
         app:iconPadding="0dp"
         app:iconGravity="textStart"
+        android:backgroundTint="@color/white"
+        app:iconTint="@color/primary"
         app:iconSize="96dp"
         app:icon="@drawable/baseline_keyboard_arrow_left_24"
         app:layout_constraintBottom_toTopOf="@+id/squareBtn"
@@ -88,6 +101,8 @@
         android:layout_marginEnd="48dp"
         app:iconPadding="0dp"
         app:iconGravity="textStart"
+        android:backgroundTint="@color/white"
+        app:iconTint="@color/primary"
         app:iconSize="96dp"
         app:icon="@drawable/baseline_keyboard_arrow_right_24"
         app:layout_constraintBottom_toTopOf="@+id/triangleBtn"
@@ -100,6 +115,8 @@
         android:layout_marginStart="48dp"
         android:layout_marginBottom="32dp"
         app:icon="@drawable/baseline_square_24"
+        android:backgroundTint="@color/white"
+        app:iconTint="@color/primary"
         app:iconGravity="textStart"
         app:iconPadding="0dp"
         app:iconSize="96dp"
@@ -112,6 +129,8 @@
         android:layout_height="96dp"
         android:layout_marginBottom="32dp"
         app:icon="@drawable/baseline_keyboard_arrow_down_24"
+        android:backgroundTint="@color/white"
+        app:iconTint="@color/primary"
         app:iconGravity="textStart"
         app:iconPadding="0dp"
         app:iconSize="96dp"
@@ -127,7 +146,7 @@
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/timerTv">
+        app:layout_constraintTop_toBottomOf="@+id/progressIndicator">
 
 
         <LinearLayout
@@ -135,7 +154,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <Button
+            <android.widget.Button
                 android:id="@+id/button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -146,6 +165,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:textColor="@color/white"
                 android:text="1" />
         </LinearLayout>
 
@@ -155,7 +175,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <Button
+            <android.widget.Button
                 android:id="@+id/button2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -169,6 +189,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:textColor="@color/white"
                 android:text="2" />
         </LinearLayout>
 
@@ -177,7 +198,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <Button
+            <android.widget.Button
                 android:id="@+id/button3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -191,7 +212,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="3" />
+                android:text="3"
+                android:textColor="@color/white"
+                />
         </LinearLayout>
 
         <LinearLayout
@@ -199,7 +222,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <Button
+            <android.widget.Button
                 android:id="@+id/button4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -213,7 +236,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="4" />
+                android:text="4"
+                android:textColor="@color/white"
+                />
         </LinearLayout>
 
         <LinearLayout
@@ -221,7 +246,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <Button
+            <android.widget.Button
                 android:id="@+id/button5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -235,7 +260,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="5" />
+                android:text="5"
+                android:textColor="@color/white"
+                />
         </LinearLayout>
 
 
@@ -256,7 +283,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <Button
+            <android.widget.Button
                 android:id="@+id/button6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -270,7 +297,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="6" />
+                android:text="6"
+                android:textColor="@color/white"
+                />
         </LinearLayout>
 
         <LinearLayout
@@ -278,7 +307,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <Button
+            <android.widget.Button
                 android:id="@+id/button7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -292,7 +321,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="7" />
+                android:text="7"
+                android:textColor="@color/white"
+                />
         </LinearLayout>
 
         <LinearLayout
@@ -300,7 +331,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <Button
+            <android.widget.Button
                 android:id="@+id/button8"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -314,7 +345,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="8" />
+                android:text="8"
+                android:textColor="@color/white"
+                />
         </LinearLayout>
 
         <LinearLayout
@@ -322,7 +355,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <Button
+            <android.widget.Button
                 android:id="@+id/button9"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -336,6 +369,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:textColor="@color/white"
                 android:text="9" />
         </LinearLayout>
 
@@ -351,15 +385,20 @@
         app:layout_constraintBottom_toTopOf="@+id/arrowUpBtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        android:textColor="@color/white"
+        />
 
-    <TextView
-        android:id="@+id/timerTv"
+    <com.google.android.material.progressindicator.LinearProgressIndicator
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:id="@+id/progressIndicator"
+        app:trackThickness="8dp"
+        app:indicatorColor="@color/white"
+        />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
