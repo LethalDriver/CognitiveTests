@@ -47,6 +47,13 @@ class ScoresAdapter(private val myDataset: MutableList<Score>) :
         } else {
             holder.mistakeCount.visibility = View.GONE
         }
+
+        if (myDataset[position].totalScore != null) {
+            holder.totalScore.text = "Total Score: ${myDataset[position].totalScore}"
+            holder.totalScore.visibility = View.VISIBLE
+        } else {
+            holder.totalScore.visibility = View.GONE
+        }
     }
 
     override fun getItemCount() = myDataset.size

@@ -81,7 +81,8 @@ class ScoresFragment : Fragment() {
             val testType = "Stroop"
             val date = evaluation.datetime
             val mistakes = evaluation.mistake_count
-            val score = Score(testType, date, null, mistakes, null)
+            val totalScore = evaluation.total_score
+            val score = Score(testType, date, null, mistakes, null, totalScore)
             scores.add(score)
         }
         for (evaluation in evaluations.digit_substitution) {
@@ -89,7 +90,8 @@ class ScoresFragment : Fragment() {
             val date = evaluation.datetime
             val mistakes = evaluation.mistake_count
             val correctAnswers = evaluation.correct_answers
-            val score = Score(testType, date, correctAnswers, mistakes, null)
+            val totalScore = evaluation.total_score
+            val score = Score(testType, date, correctAnswers, mistakes, null, totalScore)
             scores.add(score)
         }
         for (evaluation in evaluations.trail_making) {
@@ -97,7 +99,8 @@ class ScoresFragment : Fragment() {
             val date = evaluation.datetime
             val mistakes = evaluation.mistake_count
             val time = evaluation.time
-            val score = Score(testType, date, null, mistakes, time)
+            val totalScore = evaluation.total_score
+            val score = Score(testType, date, null, mistakes, time, totalScore)
             scores.add(score)
         }
         return scores.toTypedArray()

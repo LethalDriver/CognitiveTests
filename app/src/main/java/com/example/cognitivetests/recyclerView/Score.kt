@@ -5,5 +5,6 @@ data class Score(
     val dateTime: String,
     val score: Int?,
     val mistakeCount: Int?,
-    val time: Int?
+    val time: Int?,
+    val totalScore: Int?
 )
