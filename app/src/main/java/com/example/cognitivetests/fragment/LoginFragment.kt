@@ -39,24 +39,57 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // ... rest of the code ...
-    }
 
-    /**
-     * Observes the authentication state and updates the UI accordingly.
-     */
-    private fun observeAuthenticationState() {
+        if (viewModel.isUserLoggedIn()) {
+            val intent = Intent(requireContext(), MainActivity::class.java)
+            startActivity(intent)
+        }
+
+        val registerLink = view.findViewById<TextView>(R.id.registerLink)
+        val editTextEmail = view.findViewById<TextView>(R.id.editTextEmail)
+        val editTextPassword = view.findViewById<TextView>(R.id.editTextPassword)
+        val loginButton = view.findViewById<TextView>(R.id.loginButton)
+
+        registerLink.setOnClickListener {
+            findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
+        }
+
+        editTextEmail.addTextChangedListener { text ->
+            viewModel.updateEmail(text.toString())
+        }
+
+        editTextPassword.addTextChangedListener { text ->
+            viewModel.updatePassword(text.toString())
+        }
+
+        loginButton.setOnClickListener {
+            viewModel.authenticate()
+        }
+
         viewModel.authenticationState.observe(viewLifecycleOwner) { authenticationState ->
-            // ... rest of the code ...
-        }
-    }
+            when (authenticationState) {
+                LoginViewModel.AuthenticationState.LOADING -> {
+                    loginButton.isEnabled = false
+                }
 
-    /**
-     * Observes the exception message and shows a snack bar with the message when it changes.
-     */
-    private fun observeExceptionMessage() {
-        viewModel.exceptionMessage.observe(viewLifecycleOwner) { message ->
-            showSnackBar(message, true)
+                LoginViewModel.AuthenticationState.AUTHENTICATED -> {
+                    loginButton.isEnabled = true
+                    val intent = Intent(requireContext(), MainActivity::class.java)
+                    startActivity(intent)
+                    activity?.finish()
+                }
+
+                LoginViewModel.AuthenticationState.FAILED -> {
+                    loginButton.isEnabled = true
+                }
+            }
         }
+
+         viewModel.exceptionMessage.observe(viewLifecycleOwner) { message ->
+             showSnackBar(message, true)
+         }
     }
 }
+
+
+

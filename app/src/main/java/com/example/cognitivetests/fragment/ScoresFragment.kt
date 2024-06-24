@@ -16,6 +16,8 @@ import com.example.cognitivetests.service.HttpService
 import com.google.android.material.chip.Chip
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 /**
  * Fragment for displaying scores.
@@ -48,6 +50,7 @@ class ScoresFragment : Fragment() {
             val evaluations = getScores()
             val flatScoreArray = mapToFlatScoreArray(evaluations)
             scores.addAll(flatScoreArray)
+            scores.sortByDescending { LocalDateTime.parse(it.dateTime, DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss")) }
             recyclerView.layoutManager = LinearLayoutManager(context)
             recyclerView.adapter = ScoresAdapter(scores)
         }
