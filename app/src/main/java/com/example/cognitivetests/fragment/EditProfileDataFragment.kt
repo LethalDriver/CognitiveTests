@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.example.cognitivetests.R
 import com.example.cognitivetests.viewModel.UserDataViewModel
 import kotlinx.coroutines.launch
@@ -39,6 +40,7 @@ class EditProfileDataFragment : Fragment() {
 
         button.setOnClickListener {
             viewModel.updateUserData()
+            findNavController().navigate(R.id.action_editUserData_to_userProfileFragment)
         }
     }
 

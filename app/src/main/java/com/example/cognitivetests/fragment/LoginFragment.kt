@@ -12,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.cognitivetests.viewModel.LoginViewModel
 import com.example.cognitivetests.activity.MainActivity
 import com.example.cognitivetests.R
+import com.example.cognitivetests.utils.showSnackBar
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class LoginFragment : Fragment() {
@@ -76,7 +77,7 @@ class LoginFragment : Fragment() {
             }
         }
         viewModel.exceptionMessage.observe(viewLifecycleOwner) { message ->
-
+            showSnackBar(message, true)
         }
     }
 }
