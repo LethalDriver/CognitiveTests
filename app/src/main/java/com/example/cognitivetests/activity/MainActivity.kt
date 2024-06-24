@@ -9,6 +9,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.NavHostFragment
 import com.example.cognitivetests.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -29,22 +30,45 @@ class MainActivity : AppCompatActivity() {
 
         bottomNavigation.selectedItemId = R.id.home
 
+        var currentItemId = R.id.home
+
+        val menuOrder = listOf(R.id.scores, R.id.home, R.id.profile)
+
         bottomNavigation.setOnItemSelectedListener { item ->
-            when (item.itemId) {
+            val builder = NavOptions.Builder()
+            val currentIndex = menuOrder.indexOf(currentItemId)
+            val newIndex = menuOrder.indexOf(item.itemId)
+            if (newIndex > currentIndex) {
+                // Navigating to the right
+                builder.setEnterAnim(R.anim.slide_in_right)
+                    .setExitAnim(R.anim.slide_out_left)
+                    .setPopEnterAnim(R.anim.slide_in_left)
+                    .setPopExitAnim(R.anim.slide_out_right)
+            } else if (newIndex < currentIndex) {
+                // Navigating to the left
+                builder.setEnterAnim(R.anim.slide_in_left)
+                    .setExitAnim(R.anim.slide_out_right)
+                    .setPopEnterAnim(R.anim.slide_in_right)
+                    .setPopExitAnim(R.anim.slide_out_left)
+            }
+            currentItemId = item.itemId
+            val options = builder.build()
+            val handled = when (item.itemId) {
                 R.id.scores -> {
-                    navController.navigate(R.id.scoreFragment)
+                    navController.navigate(R.id.scoreFragment, null, options)
                     true
                 }
                 R.id.home -> {
-                    navController.navigate(R.id.mainFragment)
+                    navController.navigate(R.id.mainFragment, null, options)
                     true
                 }
                 R.id.profile -> {
-                    navController.navigate(R.id.userProfileFragment)
+                    navController.navigate(R.id.userProfileFragment, null, options)
                     true
                 }
                 else -> false
             }
+            handled // Indicate that the item selection event was handled
         }
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
@@ -58,7 +82,5 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        val toolbar = findViewById<Toolbar>(R.id.toolbar)
-        setSupportActionBar(toolbar)
     }
 }

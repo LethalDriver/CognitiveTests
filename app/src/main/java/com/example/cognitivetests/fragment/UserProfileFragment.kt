@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -44,6 +45,7 @@ class UserProfileFragment : Fragment() {
         val textViewEmail = view.findViewById<TextView>(R.id.email)
         val editProfileBtn = view.findViewById<TextView>(R.id.editProfileButton)
         val logoutButton = view.findViewById<TextView>(R.id.logoutButton)
+        val statsButton = view.findViewById<Button>(R.id.statsButton)
 
         lifecycleScope.launch {
             val user = fetchUserData()
@@ -62,6 +64,11 @@ class UserProfileFragment : Fragment() {
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
         }
+
+        statsButton.setOnClickListener {
+            findNavController().navigate(R.id.action_userProfileFragment_to_statsFragment)
+        }
+
 
 
     }

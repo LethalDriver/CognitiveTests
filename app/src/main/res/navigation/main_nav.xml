@@ -118,6 +118,14 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
 
+        <action
+            android:id="@+id/action_userProfileFragment_to_statsFragment"
+            app:destination="@id/statsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
     </fragment>
 
     <fragment
@@ -126,6 +134,15 @@
         android:label="fragment_register"
         tools:layout="@layout/fragment_edit_profile_data"/>
 
+    <fragment
+        android:id="@+id/statsFragment"
+        android:name="com.example.cognitivetests.fragment.StatsFragment"
+        android:label="stats_fragment"
+        tools:layout="@layout/fragment_stats">
 
-
+        <action
+            android:id="@+id/action_statsFragment_to_mainFragment"
+            app:destination="@id/mainFragment"
+            />
+    </fragment>
 </navigation>
