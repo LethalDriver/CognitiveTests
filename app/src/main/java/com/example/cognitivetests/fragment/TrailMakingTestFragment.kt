@@ -20,6 +20,11 @@ import org.koin.android.ext.android.inject
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
+/**
+ * Fragment for Trail Making Test.
+ * This fragment handles the UI and logic for Trail Making Test.
+ * It extends the TestFragment class and implements the TrailMakingTestListener interface.
+ */
 class TrailMakingTestFragment() : TestFragment(), TrailMakingTestListener {
     private lateinit var trailMakingTestView: TrailMakingTestView
     private lateinit var timerTextView: TextView
@@ -28,6 +33,9 @@ class TrailMakingTestFragment() : TestFragment(), TrailMakingTestListener {
     private var mistakeCount = 0
     private val handler = Handler(Looper.getMainLooper())
     private val runnable = object : Runnable {
+        /**
+         * Runs the timer for the test.
+         */
         override fun run() {
             secondsElapsed++
             timerTextView.text = secondsElapsed.toString()
@@ -35,12 +43,19 @@ class TrailMakingTestFragment() : TestFragment(), TrailMakingTestListener {
         }
     }
 
+    /**
+     * Inflates the layout for this fragment.
+     */
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.fragment_trail_making_test, container, false)
     }
+
+    /**
+     * Sets up the view components and logic for the Trail Making Test.
+     */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         trailMakingTestView = view.findViewById(R.id.trailMakingTestView)
@@ -52,6 +67,9 @@ class TrailMakingTestFragment() : TestFragment(), TrailMakingTestListener {
         }
     }
 
+    /**
+     * Handles the event when the test is completed.
+     */
     override fun onTestCompleted() {
         lifecycleScope.launch {
             handler.removeCallbacks(runnable)
@@ -63,16 +81,25 @@ class TrailMakingTestFragment() : TestFragment(), TrailMakingTestListener {
         }
     }
 
+    /**
+     * Handles the event when the test is started.
+     */
     override fun onTestStarted() {
         handler.post(runnable)
         return
     }
 
+    /**
+     * Handles the event when a mistake is made.
+     */
     override fun onMistake() {
         mistakeCount++
         return
     }
 
+    /**
+     * Posts the result of the test.
+     */
     private suspend fun postResult(secondsElapsed: Int, mistakes: Int) {
         val currentDateTime = LocalDateTime.now()
         val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss")
@@ -83,8 +110,6 @@ class TrailMakingTestFragment() : TestFragment(), TrailMakingTestListener {
             time = secondsElapsed
         )
 
-
         httpService.postTrailMakingResult(result)
-
     }
 }

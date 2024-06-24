@@ -7,7 +7,17 @@ import com.example.cognitivetests.R
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
+/**
+ * Base Fragment for Tests.
+ * This fragment handles the common UI and logic for all test fragments.
+ * It extends the Fragment class.
+ */
 open class TestFragment : Fragment() {
+
+    /**
+     * Handles the back press event.
+     * Shows a dialog to confirm if the user wants to abandon the test.
+     */
     fun handleBackPress() {
         AlertDialog.Builder(requireContext())
             .setTitle("Abandon Test")
@@ -19,6 +29,11 @@ open class TestFragment : Fragment() {
             .show()
     }
 
+    /**
+     * Shows a dialog when the test is completed.
+     * Asks the user if they want to save the results of the test.
+     * @return Boolean indicating if the user wants to save the results.
+     */
     suspend fun showTestCompletedDialog(): Boolean = suspendCoroutine { continuation ->
         AlertDialog.Builder(requireContext())
             .setTitle("Test Completed")

@@ -13,8 +13,17 @@ import com.example.cognitivetests.viewModel.UserDataViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
+/**
+ * Fragment for User Data Input.
+ * This fragment handles the UI and logic for inputting user data.
+ * It extends the Fragment class.
+ */
 class UserDataInputFragment : Fragment() {
     private val viewModel: UserDataViewModel by viewModel()
+
+    /**
+     * Inflates the layout for this fragment.
+     */
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -22,6 +31,9 @@ class UserDataInputFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_user_data_input, container, false)
     }
 
+    /**
+     * Sets up the view components and logic for the User Data Input.
+     */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -31,7 +43,6 @@ class UserDataInputFragment : Fragment() {
         val editTextPassword = view.findViewById<EditText>(R.id.editTextPassword)
         val editTextConfirmPassword = view.findViewById<EditText>(R.id.editTextConfirmPassword)
 
-
         editTextFirstName.addTextChangedListener { text ->
             viewModel.updateFirstName(text.toString())
             if (!viewModel.isFirstNameValid()) {
@@ -40,7 +51,6 @@ class UserDataInputFragment : Fragment() {
         }
 
         editTextLastName.addTextChangedListener { text ->
-            Log.d("UserDataInputFragment", "Last name: $text")
             viewModel.updateLastName(text.toString())
             if (!viewModel.isLastNameValid()) {
                 editTextLastName.error = "Last name cannot be blank"
@@ -84,6 +94,10 @@ class UserDataInputFragment : Fragment() {
             editTextLastName.error = null
         }
     }
+
+    /**
+     * Creates a new instance of the UserDataInputFragment.
+     */
     companion object {
         fun newInstance() = UserDataInputFragment()
     }

@@ -20,28 +20,38 @@ import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 
 
+/**
+ * Fragment for displaying statistics.
+ * This fragment handles the UI and logic for displaying statistics of different tests.
+ * It extends the Fragment class.
+ */
 class StatsFragment : Fragment() {
     private val httpService: HttpService by inject()
+
+    /**
+     * Inflates the layout for this fragment.
+     */
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_stats, container, false)
     }
 
+    /**
+     * Sets up the view components and logic for the statistics.
+     */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         val recyclerView = view.findViewById<RecyclerView>(R.id.recycler_view)
         val stats = mutableListOf<Stat>()
 
         lifecycleScope.launch {
             try {
                 val statsResponse = httpService.fetchStats()
-                Log.d("StatsFragment", "Fetched stats: $statsResponse")
                 val statsObj = statsResponse.user_stats
                 stats.addAll(mapToFlatStatArray(statsObj))
-                Log.d("StatsFragment", "Mapped stats: $stats")
                 recyclerView.layoutManager = LinearLayoutManager(context)
                 recyclerView.adapter = StatsAdapter(stats)
             } catch (e: Exception) {
@@ -50,7 +60,9 @@ class StatsFragment : Fragment() {
         }
     }
 
-
+    /**
+     * Maps the user statistics to a flat stat array.
+     */
     private fun mapToFlatStatArray(user_stats: UserStats): Array<Stat> {
         val stats = mutableListOf<Stat>()
         if (user_stats.stroop != null) {

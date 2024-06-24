@@ -9,9 +9,16 @@ import android.widget.Button
 import androidx.navigation.Navigation.findNavController
 import com.example.cognitivetests.R
 
+/**
+ * Main Fragment for the application.
+ * This fragment handles the UI and logic for the main screen of the application.
+ * It extends the Fragment class.
+ */
 class MainFragment : Fragment() {
 
-
+    /**
+     * Inflates the layout for this fragment.
+     */
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -44,5 +51,4 @@ class MainFragment : Fragment() {
         }
         return view
     }
-
 }

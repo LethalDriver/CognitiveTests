@@ -19,24 +19,29 @@ import com.example.cognitivetests.service.TokenManager
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 
+/**
+ * Fragment for User Profile.
+ * This fragment handles the UI and logic for displaying and interacting with the user profile.
+ * It extends the Fragment class.
+ */
 class UserProfileFragment : Fragment() {
 
     private val httpService: HttpService by inject()
     private val tokenManager: TokenManager by inject()
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-        }
-    }
 
+    /**
+     * Inflates the layout for this fragment.
+     */
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_user_profile, container, false)
     }
 
+    /**
+     * Sets up the view components and logic for the User Profile.
+     */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -68,11 +73,12 @@ class UserProfileFragment : Fragment() {
         statsButton.setOnClickListener {
             findNavController().navigate(R.id.action_userProfileFragment_to_statsFragment)
         }
-
-
-
     }
 
+    /**
+     * Fetches the user data.
+     * @return UserDTO object containing the user data.
+     */
     private suspend fun fetchUserData(): UserDTO {
         return httpService.fetchUserInfo()
     }

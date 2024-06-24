@@ -21,6 +21,11 @@ import org.koin.android.ext.android.inject
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
+/**
+ * Fragment for the Digit Substitution Test.
+ * This fragment handles the UI and logic for the Digit Substitution Test.
+ * It extends the TestFragment class.
+ */
 class DigitSubstitutionTest() : TestFragment() {
     private lateinit var buttonIdToDigitMap: Map<Int, Int>
     private lateinit var countDownTimer: CountDownTimer
@@ -29,7 +34,9 @@ class DigitSubstitutionTest() : TestFragment() {
     private var mistakes = 0
     private var currentDigit = 1
 
-
+    /**
+     * Inflates the layout for this fragment.
+     */
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -37,6 +44,9 @@ class DigitSubstitutionTest() : TestFragment() {
         return inflater.inflate(R.layout.fragment_digit_substitution_test, container, false)
     }
 
+    /**
+     * Sets up the view components and logic for the test.
+     */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -130,11 +140,19 @@ class DigitSubstitutionTest() : TestFragment() {
 
     }
 
+    /**
+     * Cancels the countdown timer when the fragment is destroyed.
+     */
     override fun onDestroy() {
         super.onDestroy()
         countDownTimer.cancel()
     }
 
+    /**
+     * Posts the result of the test to the server.
+     * @param goodAnswers The number of correct answers.
+     * @param mistakes The number of mistakes.
+     */
     private suspend fun postResult(goodAnswers: Int, mistakes: Int) {
         val currentDateTime = LocalDateTime.now()
         val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss")

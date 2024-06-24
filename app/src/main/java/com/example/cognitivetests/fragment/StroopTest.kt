@@ -40,6 +40,11 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import kotlin.coroutines.resume
 
+/**
+ * Fragment for Stroop Test.
+ * This fragment handles the UI and logic for Stroop Test.
+ * It extends the TestFragment class.
+ */
 class StroopTest() : TestFragment() {
     private lateinit var speechRecognizer: SpeechRecognizer
     private val httpService: HttpService by inject()
@@ -56,23 +61,37 @@ class StroopTest() : TestFragment() {
     private var score = 0
     private var currentRound = 0
 
-    // Register for activity result for permission request
+    /**
+     * Register for activity result for permission request
+     */
     private val requestPermissionLauncher = registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted: Boolean ->
         if (!isGranted){
             Toast.makeText(context, "Please enable permission to record audio to take the test.", Toast.LENGTH_SHORT).show()
-            findNavController().navigate(R.id.action_stroopTest_to_mainFragment)        }
+            findNavController().navigate(R.id.action_stroopTest_to_mainFragment)
+        }
     }
+
+    /**
+     * Creates the speech recognizer.
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         speechRecognizer = SpeechRecognizer.createSpeechRecognizer(requireContext())
     }
 
+    /**
+     * Inflates the layout for this fragment.
+     */
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.fragment_stroop_test, container, false)
     }
+
+    /**
+     * Sets up the view components and logic for the Stroop Test.
+     */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val listenButton = view.findViewById<FloatingActionButton>(R.id.speechListenButton)
@@ -83,7 +102,6 @@ class StroopTest() : TestFragment() {
             displayedColor = showColor(3000L)
             listenButton.isEnabled = true
         }
-
 
         listenButton.setOnClickListener {
             if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
@@ -98,9 +116,11 @@ class StroopTest() : TestFragment() {
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             handleBackPress()
         }
-
     }
 
+    /**
+     * Handles the next round of the Stroop Test.
+     */
     private suspend fun nextRound(
         scoreTv: TextView,
         listenButton: FloatingActionButton
@@ -120,6 +140,9 @@ class StroopTest() : TestFragment() {
         }
     }
 
+    /**
+     * Posts the result of the Stroop Test.
+     */
     private suspend fun postResult(score: Int) {
         val currentDateTime = LocalDateTime.now()
         val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss")
@@ -130,10 +153,11 @@ class StroopTest() : TestFragment() {
         )
 
         httpService.postStroopResult(result)
-
     }
 
-    // Suspend function to start listening for speech input
+    /**
+     * Starts listening for speech input.
+     */
     private suspend fun startListening(): String? = suspendCancellableCoroutine { continuation ->
         val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH).apply {
             putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
@@ -194,12 +218,17 @@ class StroopTest() : TestFragment() {
         })
     }
 
+    /**
+     * Destroys the speech recognizer.
+     */
     override fun onDestroy() {
         super.onDestroy()
         speechRecognizer.destroy()
     }
 
-    // Suspend function to show a color for a certain duration
+    /**
+     * Shows a color for a certain duration.
+     */
     private suspend fun showColor(delayValue: Long): String {
         val colorTv = view?.findViewById<TextView>(R.id.colorTv)
         val colorText = colors.keys.random()
@@ -214,6 +243,9 @@ class StroopTest() : TestFragment() {
         return colorValue
     }
 
+    /**
+     * Listens for color.
+     */
     private suspend fun listenForColor() {
         val result = startListening()
         if (result != null) {
@@ -228,6 +260,9 @@ class StroopTest() : TestFragment() {
         }
     }
 
+    /**
+     * Shows countdown on TextView.
+     */
     private suspend fun showCountdownOnTv(countDownFrom: Int) {
         val countDownTv = view?.findViewById<TextView>(R.id.colorTv)
         for (i in countDownFrom downTo 1) {
@@ -236,8 +271,4 @@ class StroopTest() : TestFragment() {
         }
         countDownTv?.text = ""
     }
-
-
-
-
 }

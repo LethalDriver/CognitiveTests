@@ -15,10 +15,17 @@ import com.example.cognitivetests.viewModel.LoginViewModel
 import com.example.cognitivetests.viewModel.UserDataViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
+/**
+ * Fragment for user registration.
+ * This fragment handles the UI and logic for user registration.
+ * It extends the Fragment class.
+ */
 class RegisterFragment : Fragment() {
     private val viewModel: UserDataViewModel by viewModel()
 
-
+    /**
+     * Inflates the layout for this fragment.
+     */
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -27,6 +34,9 @@ class RegisterFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_register, container, false)
     }
 
+    /**
+     * Sets up the view components and logic for the registration.
+     */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -38,6 +48,9 @@ class RegisterFragment : Fragment() {
             viewModel.register()
         }
 
+        /**
+         * Observes the authentication state and updates the UI accordingly.
+         */
         viewModel.authenticationState.observe(viewLifecycleOwner) { authenticationState ->
             when (authenticationState) {
                 UserDataViewModel.AuthenticationState.LOADING -> {
