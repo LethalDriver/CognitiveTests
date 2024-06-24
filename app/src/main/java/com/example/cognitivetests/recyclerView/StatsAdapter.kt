@@ -34,14 +34,16 @@ class StatsAdapter(private val myDataset: MutableList<Stat>) :
         }
 
         if (myDataset[position].meanTotalScore != null) {
-            holder.time.text = "Mean total score: ${myDataset[position].meanTotalScore} seconds"
+            val formattedTotalScore = String.format("%.2f", myDataset[position].meanTotalScore)
+            holder.time.text = "Mean total score: $formattedTotalScore"
             holder.time.visibility = View.VISIBLE
         } else {
             holder.time.visibility = View.GONE
         }
 
         if (myDataset[position].meanMistakeCount != null) {
-            holder.mistakeCount.text = "Mean mistake count: ${myDataset[position].meanMistakeCount}"
+            val formattedMistakeCount = String.format("%.2f", myDataset[position].meanMistakeCount)
+            holder.mistakeCount.text = "Mean mistake count: $formattedMistakeCount"
             holder.mistakeCount.visibility = View.VISIBLE
         } else {
             holder.mistakeCount.visibility = View.GONE
